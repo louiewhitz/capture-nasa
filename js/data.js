@@ -1,6 +1,6 @@
 /* exported data */
-// eslint-disable-next-line no-unused-vars
-var nasa = {
+
+var data = {
   view: 'start-page',
   favorites: [],
   results: [],

@@ -36,6 +36,7 @@ function getImage(person) {
   xhr.addEventListener('load', function () {
     var newImage = xhr.response.url;
     image.setAttribute('src', newImage);
+    image.setAttribute('class', 'images');
     description.textContent = xhr.response.explanation;
     date.textContent = xhr.response.date;
     starTitle.textContent = xhr.response.title;
