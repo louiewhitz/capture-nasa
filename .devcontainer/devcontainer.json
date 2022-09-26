@@ -21,7 +21,8 @@
 		"anseki.vscode-color",
 		"streetsidesoftware.code-spell-checker",
 		"wscats.html-snippets",
-		"JakeBecker.elixir-ls"
+		"JakeBecker.elixir-ls",
+		"TabNine.tabnine-vscode"
 	]
     }
   },

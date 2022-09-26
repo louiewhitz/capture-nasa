@@ -173,6 +173,11 @@ img {
   align-items: flex-start;
 }
 
+.heart {
+  width: 60px;
+  height: 60px;
+}
+
 /* utility classes */
 
 .display-flex {
@@ -231,4 +236,8 @@ img {
 .space-around {
   justify-content: space-between;
   align-items: top;
+}
+
+.object-fit {
+  object-fit: contain;
 }
