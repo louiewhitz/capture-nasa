@@ -6,6 +6,7 @@
   max-width: 575px;
   margin: 0 auto;
   padding: 0 1.5rem;
+  position: relative;
 }
 
 .row {
@@ -18,9 +19,13 @@
   width: 100%;
 }
 
+.col-third {
+  width: 33%;
+}
+
 @media screen and (min-width: 768px) {
   .container {
-    max-width: 900px;
+    max-width: 1200px;
   }
 
   .column-full,

@@ -12,7 +12,16 @@
       "extensions": [
 		"thebearingedge.lfz-code",
 		"esbenp.prettier-vscode",
-		"kamikillerto.vscode-colorize"
+		"kamikillerto.vscode-colorize",
+		"Bognaum.emmet-commands-and-keybindings",
+		"Zignd.html-css-class-completion",
+		"AntiAntiSepticeye.vscode-color-picker",
+		"MarkosTh09.color-picker",
+		"saionaro.smart-css-autocomplete",
+		"anseki.vscode-color",
+		"streetsidesoftware.code-spell-checker",
+		"wscats.html-snippets",
+		"JakeBecker.elixir-ls"
 	]
     }
   },

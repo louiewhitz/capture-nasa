@@ -1,1 +1,237 @@
+.margin-top {
+  margin: 1rem auto;
+}
 
+#h2nasa {
+  font-family: "Source Sans Pro", sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 36px;
+  line-height: 27px;
+
+  /* identical to box height, or 75% */
+  text-align: center;
+  color: #10a9ff;
+  letter-spacing: 3px;
+}
+
+.search {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(20, 247, 165, 0.45) 15.1%,
+      rgba(129, 240, 200, 0.45) 31.77%,
+      rgba(220, 174, 96, 0.45) 44.27%,
+      rgba(231, 76, 60, 0.45) 57.81%,
+      rgba(59, 234, 245, 0.45) 68.75%,
+      rgba(186, 191, 230, 0.45) 86.46%,
+      rgba(243, 60, 137, 0.45) 97.4%
+    );
+  opacity: 0.8;
+  border: 3px solid rgba(21, 83, 243, 0.75);
+  box-shadow: 0 0 60px #f8b76b;
+  height: 96px;
+  width: 136.2389px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  margin-right: 20px;
+  font-family: "Recursive Mono Casual Static", sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 29px;
+  color: #fff510;
+}
+
+.favorites {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(20, 247, 165, 0.45) 15.1%,
+      rgba(129, 240, 200, 0.45) 31.77%,
+      rgba(220, 174, 96, 0.45) 44.27%,
+      rgba(231, 76, 60, 0.45) 57.81%,
+      rgba(59, 234, 245, 0.45) 68.75%,
+      rgba(186, 191, 230, 0.45) 86.46%,
+      rgba(243, 60, 137, 0.45) 97.4%
+    ) 0.5%;
+  opacity: 0.8;
+  border: 3px solid rgba(21, 83, 243, 0.75);
+  box-shadow: 0 0 60px #f8b76b;
+  height: 134px;
+  width: 190.9134px;
+  border-radius: 50%;
+  color: #fff510;
+  text-decoration: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+.center {
+  text-align: center;
+  font-family: "Source Sans Pro", sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  color: #10a9ff;
+}
+
+.quote {
+  width: 721px;
+  font-family: Sansation, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 27px;
+  text-align: center;
+  color: #fff9fe;
+  margin-top: 0;
+}
+
+.image-container {
+  width: 100%;
+}
+
+.images {
+  object-fit: fill;
+  width: 90%;
+}
+
+img {
+  width: 100%;
+}
+
+#h2favorites,
+#h2search {
+  text-decoration: none;
+  font-family: "Recursive Mono Casual Static", sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 29px;
+  color: #fff510;
+}
+
+.content-box {
+  border: 3px solid #000;
+  box-shadow: 0 0 10px 5px #a49898c2;
+  display: flex;
+  width: 90%;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 3%;
+  margin-bottom: 100px;
+}
+
+.justify-content-flex-end {
+  justify-content: flex-end;
+}
+
+#title {
+  color: #fff856;
+  font-family: "Dancing Script", sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 48px;
+  text-align: center;
+  padding-left: 20px;
+  text-shadow: none;
+}
+
+#dateh3 {
+  font-family: "Recursive Mono Casual Static", sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 19px;
+  color: #13edfb;
+  align-self: center;
+  text-align: right;
+  padding-right: 50px;
+}
+
+.description {
+  font-family: Sansation, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13.7468px;
+  line-height: 16px;
+  color: #e7dfdf;
+  margin-top: 10px;
+  padding-left: 5px;
+}
+
+.date-container {
+  float: right;
+  align-self: center;
+  text-align: right;
+}
+
+.flex-start {
+  align-items: flex-start;
+}
+
+/* utility classes */
+.display-flex {
+  display: flex;
+}
+
+.inline-flex {
+  display: inline-flex;
+}
+
+.justify-align-right {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.justify-align-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.column-full > h2 {
+  text-align: center;
+}
+
+.align-right {
+  justify-content: flex-end;
+}
+
+.justify-center {
+  display: flex;
+  justify-content: center;
+}
+
+.align-center {
+  display: flex;
+  align-items: center;
+}
+
+.space-between {
+  justify-content: space-between;
+}
+
+.align-self {
+  justify-self: flex-end;
+}
+
+.width {
+  flex-basis: 100%;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.space-around {
+  justify-content: space-between;
+  align-items: top;
+}
