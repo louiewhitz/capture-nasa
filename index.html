@@ -14,6 +14,10 @@
       href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;700&display=swap"
       rel="stylesheet"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+    />
   </head>
   <body>
     <header class="container margin-top nav-bar">
@@ -28,9 +32,7 @@
             <a href="#search" class="search nav-tab">Search</a>
           </div>
           <div class="justify-align-center">
-            <a
-              href="#favorites"
-              class="favorites justify-align-center nav-tab"
+            <a href="#favorites" class="favorites justify-align-center nav-tab"
               ><h2 id="h2favorites">Favorites</h2></a
             >
           </div>
@@ -38,52 +40,87 @@
       </div>
     </header>
     <main>
-      <div class="container view" data-view="start-page" id="start-page">
-        <div class="row">
-          <div class="column-full justify-center">
-            <p class="quote">
-              Neque porro quisquam est qui dolorem ipsum quia dolor sit amet,
-              consectetur, adipisci velit... There is no one who loves pain
-              itself,.
-            </p>
+      <div class="view-container">
+        <div class="container view" data-view="start-page" id="start-page">
+          <div class="row">
+            <div class="column-full justify-center">
+              <p class="quote">
+                Neque porro quisquam est qui dolorem ipsum quia dolor sit amet,
+                consectetur, adipisci velit... There is no one who loves pain
+                itself,.
+              </p>
+            </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="column-full">
-            <div class="image-container justify-center">
-              <img src="images/nasa.jpeg" alt="" class="images" />
+          <div class="row">
+            <div class="column-full">
+              <div class="image-container justify-center">
+                <img src="images/nasa.jpeg" alt="" class="images" />
+              </div>
+            </div>
+          </div>
+          <div class="row justify-align-center">
+            <div class="content-box">
+              <div class="row">
+                <div class="column-full display-flex space-around">
+                  <h1 id="title">Title of stars</h1>
+                  <h3 id="dateh3">DATE: 01/01/2022</h3>
+                </div>
+                <div class="row">
+                  <div class="column-full">
+                    <p class="description">
+                      Lorem Ipsum is simply dummy text of the printing and
+                      typesetting industry. Lorem Ipsum has been the industry's
+                      standard dummy text ever since the 1500s, when an unknown
+                      printer took a galley of type and scrambled it to make a
+                      type specimen book. It has survived not only five
+                      centuries, but also the leap into electronic typesetting,
+                      remaining essentially unchanged. It was popularised in the
+                      1960s with the release of Letraset sheets containing Lorem
+                      Ipsum passages, and more recently with desktop publishing
+                      software like Aldus PageMaker including versions of Lorem
+                      Ipsum.
+                    </p>
+                  </div>
+                  <div class="column-full justify-center">
+                    <div class="heart">
+                      <img
+                        src="images/heart (1).png"
+                        alt="heart-icon"
+                        class="object-fit"
+                        id="heart-icon"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-        <div class="row justify-align-center">
-          <div class="content-box">
-            <div class="row">
-              <div class="column-full display-flex space-around">
-                <h1 id="title">Title of stars</h1>
-                <h3 id="dateh3">DATE: 01/01/2022</h3>
-              </div>
-              <div class="row">
-                <div class="column-full">
-                  <p class="description">
-                    Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry. Lorem Ipsum has been the industry's
-                    standard dummy text ever since the 1500s, when an unknown
-                    printer took a galley of type and scrambled it to make a
-                    type specimen book. It has survived not only five centuries,
-                    but also the leap into electronic typesetting, remaining
-                    essentially unchanged. It was popularised in the 1960s with
-                    the release of Letraset sheets containing Lorem Ipsum
-                    passages, and more recently with desktop publishing software
-                    like Aldus PageMaker including versions of Lorem Ipsum.
-                  </p>
+        <div class="container view" data-view="search-page" id="search">
+          <div class="row">
+            <div class="column-full justify-align-center marg-top wrap-reverse">
+              <div class="elipse"></div>
+              <form
+                id="date-form"
+                class="display-flex justify-align-center flex-wrap"
+              >
+                <div class="input-containers">
+                  <label for="day">Day</label>
+                  <input type="number" name="day" id="day" />
                 </div>
-                <div class="column-full justify-center">
-                  <div class="heart">
-                    <img src="images/heart (1).png" alt="heart-icon" class="object-fit" id="heart-icon">
-                  </div>
+                <div class="input-containers">
+                  <label for="month">Month</label>
+                  <input type="number" name="month" id="month" />
+                </div>
+                <div class="input-containers">
+                  <label for="year">Year</label>
+                  <input type="number" name="year" id="year" />
+                </div>
+                <div class="check">
+                  <button type="submit"><i class="fa-solid fa-check"></i></button>
 
                 </div>
-              </div>
+              </form>
             </div>
           </div>
         </div>
