@@ -1,6 +1,6 @@
 /* exported data */
 
-var data = {
+var nasa = {
   view: 'start-page',
   favorites: [],
   results: [],
@@ -8,13 +8,13 @@ var data = {
   favId: 1
 };
 
-var previousEntryJSON = localStorage.getItem('data');
+var previousEntryJSON = localStorage.getItem('nasa');
 if (previousEntryJSON !== null) {
-  data = JSON.parse(previousEntryJSON);
+  nasa = JSON.parse(previousEntryJSON);
 }
 
 window.addEventListener('beforeunload', beforeUnload);
 function beforeUnload() {
-  var jsonData = JSON.stringify(data);
-  localStorage.setItem('data', jsonData);
+  var jsonNasa = JSON.stringify(nasa);
+  localStorage.setItem('nasa', jsonNasa);
 }
