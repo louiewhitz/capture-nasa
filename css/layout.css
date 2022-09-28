@@ -15,12 +15,11 @@
 }
 
 .column-full,
-.column-half {
+.column-half,
+.col-third,
+.col-quart,
+.col-two-thirds {
   width: 100%;
-}
-
-.col-third {
-  width: 33%;
 }
 
 @media screen and (min-width: 768px) {
@@ -29,11 +28,26 @@
   }
 
   .column-full,
-  .column-half {
+  .column-half,
+  .col-third,
+  .col-quart,
+  .col-two-thirds {
     padding: 0 0.75rem;
   }
 
   .column-half {
     width: 50%;
+  }
+
+  .col-third {
+    width: 33%;
+  }
+
+  .col-quart {
+    width: 25%;
+  }
+
+  .col-two-thirds {
+    flex-basis: 66%;
   }
 }
