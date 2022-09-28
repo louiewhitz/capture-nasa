@@ -23,17 +23,26 @@
     <header class="container margin-top nav-bar">
       <div class="row space-evenly">
         <div class="column-half justify-align-center">
-          <a href="#start-page" class="justify-align-center nav-tab"
-            ><h2 id="h2nasa">NASA Today</h2></a
+          <a
+            href="#start-page"
+            class="justify-align-center nav-tab active"
+            id="h2nasa"
+            data-set="start-page"
+            >NASA Today</a
           >
         </div>
         <div class="column-half display-flex justify-align-center">
           <div class="justify-align-center">
-            <a href="#search" class="search nav-tab">Search</a>
+            <a href="#search" class="search nav-tab" data-set="search-page"
+              >Search</a
+            >
           </div>
           <div class="justify-align-center">
-            <a href="#favorites" class="favorites justify-align-center nav-tab"
-              ><h2 id="h2favorites">Favorites</h2></a
+            <a
+              href="#favorites"
+              class="favorites justify-align-center nav-tab"
+              data-set="favorites-page"
+              >Favorites</a
             >
           </div>
         </div>
@@ -41,54 +50,57 @@
     </header>
     <main>
       <div class="view-container">
-        <div class="container view" data-view="start-page" id="start-page">
-          <div class="row">
-            <div class="column-full justify-center">
-              <p class="quote">
-                Neque porro quisquam est qui dolorem ipsum quia dolor sit amet,
-                consectetur, adipisci velit... There is no one who loves pain
-                itself,.
-              </p>
-            </div>
-          </div>
-          <div class="row">
-            <div class="column-full">
-              <div class="image-container justify-center">
-                <img src="images/nasa.jpeg" alt="" class="images" />
+        <div class="view" data-view="start-page" id="start-page">
+          <div class="container">
+            <div class="row">
+              <div class="column-full justify-center">
+                <p class="quote">
+                  Neque porro quisquam est qui dolorem ipsum quia dolor sit
+                  amet, consectetur, adipisci velit... There is no one who loves
+                  pain itself,.
+                </p>
               </div>
             </div>
-          </div>
-          <div class="row justify-align-center">
-            <div class="content-box">
-              <div class="row">
-                <div class="column-full display-flex space-around">
-                  <h1 id="title">Title of stars</h1>
-                  <h3 id="dateh3">DATE: 01/01/2022</h3>
+            <div class="row">
+              <div class="column-full">
+                <div class="image-container justify-center">
+                  <img src="images/nasa.jpeg" alt="" class="images" />
                 </div>
+                <iframe class="hidden"></iframe>
+              </div>
+            </div>
+            <div class="row justify-align-center">
+              <div class="content-box">
                 <div class="row">
-                  <div class="column-full">
-                    <p class="description">
-                      Lorem Ipsum is simply dummy text of the printing and
-                      typesetting industry. Lorem Ipsum has been the industry's
-                      standard dummy text ever since the 1500s, when an unknown
-                      printer took a galley of type and scrambled it to make a
-                      type specimen book. It has survived not only five
-                      centuries, but also the leap into electronic typesetting,
-                      remaining essentially unchanged. It was popularised in the
-                      1960s with the release of Letraset sheets containing Lorem
-                      Ipsum passages, and more recently with desktop publishing
-                      software like Aldus PageMaker including versions of Lorem
-                      Ipsum.
-                    </p>
+                  <div class="column-full display-flex space-around">
+                    <h1 class="title">Title of stars</h1>
+                    <h3 class="dateh3">DATE: 01/01/2022</h3>
                   </div>
-                  <div class="column-full justify-center">
-                    <div class="heart">
-                      <img
-                        src="images/heart (1).png"
-                        alt="heart-icon"
-                        class="object-fit"
-                        id="heart-icon"
-                      />
+                  <div class="row">
+                    <div class="column-full">
+                      <p class="description">
+                        Lorem Ipsum is simply dummy text of the printing and
+                        typesetting industry. Lorem Ipsum has been the
+                        industry's standard dummy text ever since the 1500s,
+                        when an unknown printer took a galley of type and
+                        scrambled it to make a type specimen book. It has
+                        survived not only five centuries, but also the leap into
+                        electronic typesetting, remaining essentially unchanged.
+                        It was popularised in the 1960s with the release of
+                        Letraset sheets containing Lorem Ipsum passages, and
+                        more recently with desktop publishing software like
+                        Aldus PageMaker including versions of Lorem Ipsum.
+                      </p>
+                    </div>
+                    <div class="column-full justify-center">
+                      <div class="heart">
+                        <img
+                          src="images/heart (1).png"
+                          alt="heart-icon"
+                          class="object-fit"
+                          id="heart-icon"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -96,34 +108,85 @@
             </div>
           </div>
         </div>
-        <div class="container view" data-view="search-page" id="search">
-          <div class="row">
-            <div class="column-full justify-align-center marg-top wrap-reverse">
-              <div class="elipse"></div>
-              <form
-                id="date-form"
-                class="display-flex justify-align-center flex-wrap"
-              >
-                <div class="input-containers">
-                  <label for="day">Day</label>
-                  <input type="number" name="day" id="day" />
-                </div>
-                <div class="input-containers">
-                  <label for="month">Month</label>
-                  <input type="number" name="month" id="month" />
-                </div>
-                <div class="input-containers">
-                  <label for="year">Year</label>
-                  <input type="number" name="year" id="year" />
-                </div>
-                <div class="check">
-                  <button type="submit"><i class="fa-solid fa-check"></i></button>
-
+        <div class="view hidden" data-view="search-page" id="search">
+          <div class="container marg-top">
+            <div class="row width justify-align-center wrap-reverse">
+              <div class="col-third justify-align-center">
+                <div class="elipse"></div>
+              </div>
+              <form id="date-form">
+                <div
+                  class="col-two-thirds display-flex justify-align-center flex-wrap"
+                >
+                  <div class="input-containers">
+                    <label for="day">Day</label>
+                    <input type="number" name="day" id="day" />
+                  </div>
+                  <div class="input-containers">
+                    <label for="month">Month</label>
+                    <input type="number" name="month" id="month" />
+                  </div>
+                  <div class="input-containers">
+                    <label for="year">Year</label>
+                    <input type="number" name="year" id="year" />
+                  </div>
+                  <div class="check">
+                    <button type="submit">
+                      <i class="fa-solid fa-check"></i>
+                    </button>
+                  </div>
                 </div>
               </form>
             </div>
           </div>
         </div>
+        <div class="view hidden" data-view="search-result" id="search-result">
+          <div class="container">
+            <div class="row">
+              <div class="column-full">
+                <ul id="search-ul" class="display-flex"></ul>
+              </div>
+            </div>
+            <div class="row justify-align-center">
+              <div class="content-box">
+                <div class="row">
+                  <div class="column-full display-flex space-around">
+                    <h1 class="search-title">Title of stars</h1>
+                    <h3 class="search-date">DATE: 01/01/2022</h3>
+                  </div>
+                  <div class="row">
+                    <div class="column-full">
+                      <p class="search-description">
+                        Lorem Ipsum is simply dummy text of the printing and
+                        typesetting industry. Lorem Ipsum has been the
+                        industry's standard dummy text ever since the 1500s,
+                        when an unknown printer took a galley of type and
+                        scrambled it to make a type specimen book. It has
+                        survived not only five centuries, but also the leap into
+                        electronic typesetting, remaining essentially unchanged.
+                        It was popularised in the 1960s with the release of
+                        Letraset sheets containing Lorem Ipsum passages, and
+                        more recently with desktop publishing software like
+                        Aldus PageMaker including versions of Lorem Ipsum.
+                      </p>
+                    </div>
+                    <div class="column-full justify-center">
+                      <div class="heart-div">
+                        <img
+                          src="images/heart (1).png"
+                          alt="heart-icon"
+                          class="search-icon"
+                          id="search-heart"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="view" data-view="favorites-page" id="favorites"></div>
       </div>
     </main>
     <script src="js/data.js"></script>

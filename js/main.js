@@ -2,12 +2,15 @@
 /* eslint-disable no-unused-vars */
 
 /* global nasa */
-// var navBar = document.querySelector('.nav-bar');
-// var navTab = document.querySelectorAll('.nav-tab');
-// var view = document.querySelectorAll('.view');
+var navBar = document.querySelector('.nav-bar');
+var navTab = document.querySelectorAll('.nav-tab');
+var view = document.querySelectorAll('.view');
+var viewContainer = document.querySelector('.view-container');
+var searchHeart = document.querySelector('#search-heart');
+var heartDiv = document.querySelector('.heart-div');
 
-var starTitle = document.querySelector('#title');
-var date = document.querySelector('#dateh3');
+var starTitle = document.querySelector('.title');
+var date = document.querySelector('.dateh3');
 var image = document.querySelector('img');
 var description = document.querySelector('.description');
 var $heart = document.querySelector('#heart-icon');
@@ -18,9 +21,59 @@ var form = document.querySelector('#date-form');
 var day = document.querySelector('#day');
 var month = document.querySelector('#month');
 var year = document.querySelector('#year');
+var iframe = document.querySelector('iframe');
 var response = {};
+var searchResultPage = document.querySelector('#search-result');
 
-// var demokey = 'DEMO_KEY';
+var startView = document.querySelector('[data-view=start-page]');
+var resultView = document.querySelector('[data-view=search-result]');
+var searchView = document.querySelector('[data-view=search-page]');
+var favoritesView = document.querySelector('[data-view=favorites-page]');
+var searchUl = document.querySelector('#search-ul');
+
+$heart.addEventListener('click', handleHeart);
+form.addEventListener('submit', handleDate);
+
+searchHeart.addEventListener('click', saveSearch);
+var searchArr = [];
+
+function viewSwap(view) {
+  if (view === 'start-page') {
+    startView.className = 'view';
+    favoritesView.className = 'view hidden';
+    searchView.className = 'view hidden';
+    resultView.className = 'view hidden';
+  } else if (view === 'search-page') {
+    searchView.className = 'view';
+    favoritesView.className = 'view hidden';
+    startView.className = 'view hidden';
+    resultView.className = 'view hidden';
+  } else if (view === 'search-result') {
+    startView.className = 'view hidden';
+    favoritesView.className = 'view hidden';
+    searchView.className = 'view hidden';
+    resultView.className = 'view';
+  } else if (view === 'favories-page') {
+    startView.className = 'view hidden';
+    favoritesView.className = 'view';
+    searchView.className = 'view hidden';
+    resultView.className = 'view hidden';
+  }
+}
+navBar.addEventListener('click', handleNav);
+function handleNav(event) {
+  if (event.target.matches('.nav-tab')) {
+    for (var i = 0; i < navTab.length; i++) {
+      var activeNav = navTab[i];
+      if (activeNav === event.target) {
+        var dataSet = activeNav.getAttribute('data-set');
+        var result = `${dataSet}`;
+        viewSwap(result);
+      }
+    }
+  }
+}
+
 var nasaBaseUrl = `https://api.nasa.gov/planetary/apod?api_key=${apiKey}`;
 
 var results = [];
@@ -29,50 +82,17 @@ var results = [];
 
 // addEventListener functions
 
-$heart.addEventListener('click', saveImage);
-form.addEventListener('submit', handleDate);
-
-// navBar.addEventListener('click', handleNav);
-
-// functions for event listeners
-// function handleNav(event) {
-//   if (!event.target.matches('.nav-tab')) {
-//     return;
-//   }
-//   for (var i = 0; i < navTab.length; i++) {
-//     var $activeTab = navTab[i];
-
-//     if ($activeTab === event.target) {
-//       $activeTab.className = 'nav-tab active';
-//     } else {
-//       $activeTab.className = 'nav-tab';
-
-//     }
-
-//   }
-//   var viewName = event.target.getAttribute('data-view');
-//   for (var j = 0; j < view.length; j++) {
-//     if (view[j].getAttribute('data-view') !== viewName) {
-//       view[j].className = 'view hidden';
-
-//     } else {
-//       view[j].className = 'view';
-//     }
-//   }
-// }
 function handleDate(event) {
   event.preventDefault();
   var currentDay = day.value;
-  console.log('~ currentDay ', currentDay);
-
   var currentMonth = month.value;
   var currentYear = year.value;
   var searchDate = document.createElement('input');
   searchDate.type = 'date';
-  console.log('~ searchDate', searchDate);
   searchDate.setAttribute('value', `${currentYear}-${currentMonth}-${currentDay}`);
-  console.log('~ searchDate', searchDate);
   searchDay(searchDate);
+  // this is where your calling the hxr request for date
+  form.reset();
 }
 
 function searchDay(time) {
@@ -80,9 +100,6 @@ function searchDay(time) {
   xhr.open('GET', nasaBaseUrl + `&date=${year.value}-${month.value}-${day.value}`);
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
-    console.log(xhr.status);
-    console.log(xhr.response);
-
     var searchImg = document.createElement('img');
     searchImg.setAttribute('src', xhr.response.url);
     var searchValues = {
@@ -91,34 +108,49 @@ function searchDay(time) {
       description: xhr.response.explanation,
       image: searchImg
     };
-    console.log('search', searchValues);
+    searchArr.push(searchValues);
+    renderSearch(searchValues);
   });
   xhr.send();
 }
 
-function saveImage(event) {
+function handleHeart(event) {
   console.log('nasa', nasa);
   if (event.target.className === 'object-fit') {
+
     console.log('clicked!');
     nasa.favorites.unshift(response);
     nasa.favId++;
-    console.log('nasa in block', nasa);
+  } else if (event.target.className === 'search-icon') {
+    this.response = response;
+    nasa.favorites.unshift(this.response);
+    console.log('~ nasa.favorites', nasa.favorites);
+    nasa.favId++;
   }
+  // renderSave(response);
+  // viewSwap('favorites');
 }
 
+function saveImg(entry) {
+  nasa.favorites.unshift(entry);
+  nasa.favId++;
+}
 window.addEventListener('DOMContentLoaded', DOMloaded);
 
 function DOMloaded() {
-  var currentTitle = starTitle;
-  var currentImage = image;
-  var currentDate = date;
-  var currentDescription = description;
-  response.image = image;
-  response.title = starTitle;
-  response.description = description;
-  response.date = date;
-  console.log('response', response);
-  saveImage();
+  // var currentTitle = starTitle;
+  // var currentImage = image;
+  // var currentDate = date;
+  // var currentDescription = description;
+  // response.image = image;
+  // response.title = starTitle;
+  // response.description = description;
+  // response.date = date;
+  // handleHeart();
+  console.log(renderSearch());
+  for (var i = 0; i < nasa.favorites.length; i++) {
+    console.log('nasa-favorites', nasa.favorites[i]);
+  }
 }
 
 function todaysQuote(quote) {
@@ -143,27 +175,43 @@ function getImage(person) {
   xhr.open('GET', nasaBaseUrl);
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
-    var newImage = xhr.response.url;
-    image.setAttribute('src', newImage);
-    image.setAttribute('class', 'images');
-    description.textContent = xhr.response.explanation;
-    date.textContent = xhr.response.date;
-    starTitle.textContent = xhr.response.title;
-    response = xhr.response;
-    console.log('response', xhr.response);
-    console.log(xhr.status);
-    var obj = {
-      image: newImage,
-      title: xhr.response.title,
-      date: xhr.response.date,
-      entry: nasa.nextEntryId
-    };
+    if (xhr.status === 200) {
+      // console.log('status', xhr.status);
+      // console.log('result', xhr.response);
+      if (xhr.response.media_type === 'video') {
 
-    // ADD IF MEDIA_TYPE VIDEO
-    nasa.nextEntryId++;
-    nasa.results.push(obj);
-    load(obj);
-    console.log(obj);
+        console.log(xhr.response.media_type);
+        var vidUrl = xhr.response.url;
+        iframe.setAttribute('src', vidUrl);
+
+        iframe.style.width = '420px';
+        iframe.style.height = '315px';
+        iframe.className = 'view';
+
+      } else {
+        iframe.className = 'hidden';
+      }
+      var newImage = xhr.response.url;
+      image.setAttribute('src', newImage);
+      image.setAttribute('class', 'images');
+      description.textContent = xhr.response.explanation;
+      date.textContent = xhr.response.date;
+
+      starTitle.textContent = xhr.response.title;
+      response = xhr.response;
+      console.log(xhr.status);
+      var obj = {
+        image: newImage,
+        title: xhr.response.title,
+        date: xhr.response.date,
+        entry: nasa.nextEntryId
+      };
+      results.push(xhr.response);
+      console.log(results);
+      nasa.nextEntryId++;
+      nasa.results.push(obj);
+      load(obj);
+    }
   });
   xhr.send();
 }
@@ -175,4 +223,45 @@ function load(entry) {
   // figure this out
 }
 
-function renderEntry(entry) {}
+function renderSave(entry) {}
+function removeLi() {
+  if (view !== 'search-result') {
+    searchUl.remove('li');
+  }
+}
+
+function renderSearch(entry) {
+  // handleHeart();
+
+  var title = entry.title;
+  var img = entry.image;
+  console.log('~ img', img);
+  var li = document.createElement('li');
+  var description = entry.description;
+  var date = entry.date;
+  var searchImg = document.createElement('img');
+  var searchTitle = document.querySelector('.search-title');
+  searchTitle.textContent = title;
+  var searchDescription = document.querySelector('.search-description');
+  var searchD = document.querySelector('.search-date');
+  searchD.textContent = date;
+  searchDescription.textContent = description;
+  var newEntry = {
+    title,
+    image: img,
+    description,
+    date
+  };
+
+  load(newEntry);
+  viewSwap('search-result');
+  // append the li
+  li.append(img);
+  searchUl.appendChild(li);
+}
+
+function saveSearch(event) {
+  if (event.target.className === '.search-icon') {
+    console.log('event.target', event.target);
+  }
+}
