@@ -31,7 +31,7 @@ var searchView = document.querySelector('[data-view=search-page]');
 var favoritesView = document.querySelector('[data-view=favorites-page]');
 var searchUl = document.querySelector('#search-ul');
 
-$heart.addEventListener('click', saveImage);
+$heart.addEventListener('click', handleHeart);
 form.addEventListener('submit', handleDate);
 
 searchHeart.addEventListener('click', saveSearch);
@@ -114,15 +114,27 @@ function searchDay(time) {
   xhr.send();
 }
 
-function saveImage(event) {
+function handleHeart(event) {
   console.log('nasa', nasa);
   if (event.target.className === 'object-fit') {
+
     console.log('clicked!');
     nasa.favorites.unshift(response);
     nasa.favId++;
+  } else if (event.target.className === 'search-icon') {
+    this.response = response;
+    nasa.favorites.unshift(this.response);
+    console.log('~ nasa.favorites', nasa.favorites);
+    nasa.favId++;
   }
+  // renderSave(response);
+  // viewSwap('favorites');
 }
 
+function saveImg(entry) {
+  nasa.favorites.unshift(entry);
+  nasa.favId++;
+}
 window.addEventListener('DOMContentLoaded', DOMloaded);
 
 function DOMloaded() {
@@ -134,7 +146,7 @@ function DOMloaded() {
   // response.title = starTitle;
   // response.description = description;
   // response.date = date;
-  saveImage();
+  // handleHeart();
   console.log(renderSearch());
   for (var i = 0; i < nasa.favorites.length; i++) {
     console.log('nasa-favorites', nasa.favorites[i]);
@@ -219,11 +231,12 @@ function removeLi() {
 }
 
 function renderSearch(entry) {
-  // saveImage();
-  var li = document.createElement('li');
+  // handleHeart();
+
   var title = entry.title;
   var img = entry.image;
   console.log('~ img', img);
+  var li = document.createElement('li');
   var description = entry.description;
   var date = entry.date;
   var searchImg = document.createElement('img');
@@ -239,7 +252,7 @@ function renderSearch(entry) {
     description,
     date
   };
-  console.log('~ title', newEntry);
+
   load(newEntry);
   viewSwap('search-result');
   // append the li
