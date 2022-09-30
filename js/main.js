@@ -6,13 +6,10 @@ var navBar = document.querySelector('.nav-bar');
 var navTab = document.querySelectorAll('.nav-tab');
 var view = document.querySelectorAll('.view');
 var viewContainer = document.querySelector('.view-container');
-var searchHeart = document.querySelector('#search-heart');
+var allIcons = document.querySelectorAll('.all-icons');
+console.log('~ allIcons ', allIcons);
 var heartDiv = document.querySelector('.heart-div');
 
-var starTitle = document.querySelector('.title');
-var date = document.querySelector('.dateh3');
-var image = document.querySelector('img');
-var description = document.querySelector('.description');
 var $heart = document.querySelector('#heart-icon');
 var todayQUrl = 'https://api.quotable.io/random';
 var apiKey = 'FBXb07IIDEucETFgOd4i8dqsC9qxqeJqGru7sCKy';
@@ -22,7 +19,7 @@ var day = document.querySelector('#day');
 var month = document.querySelector('#month');
 var year = document.querySelector('#year');
 var iframe = document.querySelector('iframe');
-var response = {};
+
 var searchResultPage = document.querySelector('#search-result');
 
 var startView = document.querySelector('[data-view=start-page]');
@@ -30,12 +27,68 @@ var resultView = document.querySelector('[data-view=search-result]');
 var searchView = document.querySelector('[data-view=search-page]');
 var favoritesView = document.querySelector('[data-view=favorites-page]');
 var searchUl = document.querySelector('#search-ul');
-
-$heart.addEventListener('click', handleHeart);
+var startDescription = document.querySelector('.start-description');
+var dateh3 = document.querySelector('.dateh3');
+var starTitle = document.querySelector('.startitle');
+var startimage = document.querySelector('#start-image');
+var heartClick = document.querySelector('object-fit');
 form.addEventListener('submit', handleDate);
+var link2 = document.querySelector('#link2');
+link2.addEventListener('click', handleHeartSearchClick);
+function handleHeartSearchClick(event) {
 
-searchHeart.addEventListener('click', saveSearch);
-var searchArr = [];
+  var currentTitle = document.querySelector('.search-title');
+
+  var currentDate = document.querySelector('.search-date');
+
+  var currentSearchDescription = document.querySelector('.search-description');
+  var newTitle = currentTitle.textContent;
+  var newDate = currentDate.textContent;
+  var newDescription = currentSearchDescription.textContent;
+
+  var currentImg = document.querySelector('#search-image');
+
+  var url = currentImg.getAttribute('src');
+  var newImg = url;
+  console.log('~ newImg', newImg);
+  var newEntry = {
+    title: newTitle,
+    date: newDate,
+    image: newImg,
+    description: newDescription,
+    entry: nasa.favId
+  };
+  saveImg(newEntry);
+  viewSwap('favorites-page');
+
+}
+
+var link1 = document.getElementById('link1');
+console.log(link1);
+link1.addEventListener('click', handleStartHeartClick);
+function handleStartHeartClick(event) {
+
+  var curTitle = document.querySelector('.startitle');
+  var newTitle = curTitle.textContent;
+  var currentDescription = document.querySelector('.start-description');
+  var newDescription = currentDescription.textContent;
+  console.log('~ newDescription', newDescription);
+  var curDate = document.querySelector('.dateh3');
+  var newDate = curDate.textContent;
+
+  var curImage = document.querySelector('#start-image');
+  var imgUrl = curImage.getAttribute('src');
+
+  var newEntry = {
+    title: newTitle,
+    date: newDate,
+    description: newDescription,
+    image: imgUrl,
+    entry: nasa.favId
+  };
+  saveImg(newEntry);
+
+}
 
 function viewSwap(view) {
   if (view === 'start-page') {
@@ -53,7 +106,7 @@ function viewSwap(view) {
     favoritesView.className = 'view hidden';
     searchView.className = 'view hidden';
     resultView.className = 'view';
-  } else if (view === 'favories-page') {
+  } else if (view === 'favorites-page') {
     startView.className = 'view hidden';
     favoritesView.className = 'view';
     searchView.className = 'view hidden';
@@ -64,11 +117,16 @@ navBar.addEventListener('click', handleNav);
 function handleNav(event) {
   if (event.target.matches('.nav-tab')) {
     for (var i = 0; i < navTab.length; i++) {
+
       var activeNav = navTab[i];
+      console.log('~ activeNav', activeNav);
       if (activeNav === event.target) {
         var dataSet = activeNav.getAttribute('data-set');
+        console.log('~ dataSet', dataSet);
         var result = `${dataSet}`;
+        console.log('~ result', result);
         viewSwap(result);
+        console.log('~ viewSwap(result);', viewSwap(result));
       }
     }
   }
@@ -76,12 +134,36 @@ function handleNav(event) {
 
 var nasaBaseUrl = `https://api.nasa.gov/planetary/apod?api_key=${apiKey}`;
 
-var results = [];
-
 // https://api.nasa.gov/planetary/apod?api_key=dEkS7Nd0bnEcjS4WEJ5h1RkyG0SPAtHAeqohZ7Dq
 
 // addEventListener functions
+function getNasaImg(image) {
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', nasaBaseUrl);
+  xhr.responseType = 'json';
+  xhr.addEventListener('load', function () {
+    console.log('nasaImgResponse: ' + xhr.response.title);
+    var title = xhr.response.title;
+    var description = xhr.response.explanation;
+    var imgUrl = xhr.response.url;
+    var date = xhr.response.date;
+    startDescription.textContent = description;
+    starTitle.textContent = title;
+    startimage.setAttribute('src', imgUrl);
+    startimage.setAttribute('class', 'images');
+    dateh3.textContent = date;
+    var startEntry = {
+      title,
+      description,
+      image: imgUrl,
+      date,
+      entry: nasa.startResult
+    };
+  });
+  xhr.send();
 
+}
+getNasaImg(nasa);
 function handleDate(event) {
   event.preventDefault();
   var currentDay = day.value;
@@ -100,57 +182,66 @@ function searchDay(time) {
   xhr.open('GET', nasaBaseUrl + `&date=${year.value}-${month.value}-${day.value}`);
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
+    console.log(xhr.response);
+
+    var response = xhr.response;
+    var description = response.explanation;
+    console.log('~ description of response', description);
+    var imgUrl = response.url;
+    console.log('~ imgUrl', imgUrl);
+    var title = response.title;
+    var date = response.date;
+
     var searchImg = document.createElement('img');
-    searchImg.setAttribute('src', xhr.response.url);
+
+    searchImg.setAttribute('src', imgUrl);
+    // var title = xhr.responseEntry.title;
+    console.log('~ title ', title);
+    var searchDescription = response.explanation;
+    console.log('~ searchDescription', searchDescription);
+
     var searchValues = {
-      title: xhr.response.title,
-      date: xhr.response.date,
-      description: xhr.response.explanation,
-      image: searchImg
+      title: response.title,
+      date: response.date,
+      description: response.explanation,
+      image: imgUrl,
+      searchResult: nasa.searchResult
     };
-    searchArr.push(searchValues);
-    renderSearch(searchValues);
+    nasa.searchResult++;
+
+    renderSearch(searchValues); // maybe switch back to responseEntry obj
   });
   xhr.send();
 }
 
-function handleHeart(event) {
-  console.log('nasa', nasa);
-  if (event.target.className === 'object-fit') {
-
-    console.log('clicked!');
-    nasa.favorites.unshift(response);
-    nasa.favId++;
-  } else if (event.target.className === 'search-icon') {
-    this.response = response;
-    nasa.favorites.unshift(this.response);
-    console.log('~ nasa.favorites', nasa.favorites);
-    nasa.favId++;
-  }
-  // renderSave(response);
-  // viewSwap('favorites');
-}
-
 function saveImg(entry) {
+  console.log('saveImg', entry);
   nasa.favorites.unshift(entry);
   nasa.favId++;
+  load(entry);
+  viewSwap('favorites-page');
 }
+
+function load(entry) {
+  console.log('load entry', entry);
+  var newEntry = renderFavorites(entry);
+  console.log('~ newEntry', newEntry);
+  searchUl.prepend(newEntry);
+  viewSwap('favorites-page');
+
+  // figure this out
+}
+
 window.addEventListener('DOMContentLoaded', DOMloaded);
 
 function DOMloaded() {
-  // var currentTitle = starTitle;
-  // var currentImage = image;
-  // var currentDate = date;
-  // var currentDescription = description;
-  // response.image = image;
-  // response.title = starTitle;
-  // response.description = description;
-  // response.date = date;
-  // handleHeart();
-  console.log(renderSearch());
   for (var i = 0; i < nasa.favorites.length; i++) {
+    var previousEntry = renderFavorites(nasa.favorites[i]);
+    console.log('previus entry', previousEntry);
+    searchUl.append(previousEntry);
     console.log('nasa-favorites', nasa.favorites[i]);
   }
+  viewSwap('favorites-page');
 }
 
 function todaysQuote(quote) {
@@ -170,98 +261,167 @@ function todaysQuote(quote) {
 
 todaysQuote(name);
 
-function getImage(person) {
-  var xhr = new XMLHttpRequest();
-  xhr.open('GET', nasaBaseUrl);
-  xhr.responseType = 'json';
-  xhr.addEventListener('load', function () {
-    if (xhr.status === 200) {
-      // console.log('status', xhr.status);
-      // console.log('result', xhr.response);
-      if (xhr.response.media_type === 'video') {
-
-        console.log(xhr.response.media_type);
-        var vidUrl = xhr.response.url;
-        iframe.setAttribute('src', vidUrl);
-
-        iframe.style.width = '420px';
-        iframe.style.height = '315px';
-        iframe.className = 'view';
-
-      } else {
-        iframe.className = 'hidden';
-      }
-      var newImage = xhr.response.url;
-      image.setAttribute('src', newImage);
-      image.setAttribute('class', 'images');
-      description.textContent = xhr.response.explanation;
-      date.textContent = xhr.response.date;
-
-      starTitle.textContent = xhr.response.title;
-      response = xhr.response;
-      console.log(xhr.status);
-      var obj = {
-        image: newImage,
-        title: xhr.response.title,
-        date: xhr.response.date,
-        entry: nasa.nextEntryId
-      };
-      results.push(xhr.response);
-      console.log(results);
-      nasa.nextEntryId++;
-      nasa.results.push(obj);
-      load(obj);
-    }
-  });
-  xhr.send();
-}
-
-getImage(name);
-
-function load(entry) {
-  console.log(entry);
-  // figure this out
-}
-
-function renderSave(entry) {}
-function removeLi() {
-  if (view !== 'search-result') {
-    searchUl.remove('li');
-  }
-}
-
 function renderSearch(entry) {
-  // handleHeart();
-
+  console.log('renderSearch entry: ' + entry);
   var title = entry.title;
   var img = entry.image;
-  console.log('~ img', img);
-  var li = document.createElement('li');
   var description = entry.description;
   var date = entry.date;
-  var searchImg = document.createElement('img');
+  var searchImg = document.querySelector('#search-image');
+
+  searchImg.setAttribute('src', img);
+
   var searchTitle = document.querySelector('.search-title');
   searchTitle.textContent = title;
   var searchDescription = document.querySelector('.search-description');
   var searchD = document.querySelector('.search-date');
+
   searchD.textContent = date;
+
   searchDescription.textContent = description;
-  var newEntry = {
+
+  console.log('~ searchDescription', searchDescription);
+
+  var responseObj = {
+
     title,
-    image: img,
     description,
+    image: img,
     date
   };
 
-  load(newEntry);
   viewSwap('search-result');
-  // append the li
-  li.append(img);
-  searchUl.appendChild(li);
+
 }
 
-function saveSearch(event) {
-  if (event.target.className === '.search-icon') {
-    console.log('event.target', event.target);
-  }
+function renderFavorites(entry) {
+  console.log('renderFavorites', entry);
+  var newEntry = this.entry;
+  console.log('~ newEntry', newEntry);
+
+  var $listItem = document.createElement('li');
+  $listItem.setAttribute('class', 'row justify-align-center');
+
+  var $colFull1 = document.createElement('div');
+  $colFull1.setAttribute('class', 'column-full justify-align-center');
+
+  var $imgContainer = document.createElement('div');
+  $imgContainer.setAttribute('class', 'image-container justify-center');
+  // $imgContainer.setAttribute('class', 'justify-center');
+  // $listitem append image & frame
+  // if (entry.image.)
+  var $favImg = document.createElement('img');
+  // if (entry.image === undefined) {
+  //   $favImg.setAttribute('src', entry.url);
+  // } else if (entry.image.media_type === 'video') {
+  //   var $iframe = document.createElement('iframe');
+  //   $iframe.setAttribute('src', entry.image);
+  //   $iframe.style.width = '420px';
+  //   $iframe.style.height = '315px';
+  //   $iframe.setAttribute('class', 'view');
+  //   $imgContainer.appendChild($iframe);
+
+  // } else {
+  $favImg.setAttribute('src', entry.image);
+  // }
+
+  $favImg.setAttribute('class', 'images');
+
+  console.log('fav', $favImg);
+
+  // var $iframe = document.createElement('iframe');
+  // $iframe.setAttribute('src', entry.image);
+  // $iframe.style.width = '420px';
+  // $iframe.style.height = '315px';
+  // $iframe.setAttribute('class', 'hidden');
+
+  var $row = document.createElement('div');
+  $row.setAttribute('class', 'justify-align-center row width');
+
+  var $contentBox = document.createElement('div');
+  $contentBox.setAttribute('class', 'content-box');
+  // content append second row
+  var $secondRow = document.createElement('div');
+  $secondRow.setAttribute('class', 'row space-around width');
+  var $extraRow = document.createElement('div');
+  $extraRow.setAttribute('class', 'row width justify-center');
+
+  var $colFull = document.createElement('div');
+  $colFull.setAttribute('class', 'column-full display-flex space-around');
+  // $colFull.setAttribute('class', 'display-flex');
+  // $colFull.setAttribute('class', 'space-around');
+
+  var $title = document.createElement('h1');
+  $title.setAttribute('class', 'title');
+  $title.textContent = entry.title;
+  console.log('~ $title', $title);
+
+  var $date = document.createElement('h3');
+  $date.setAttribute('class', 'dateh3');
+  $date.textContent = entry.date;
+
+  var $thirdRow = document.createElement('div');
+  $thirdRow.setAttribute('class', 'row');
+
+  var $secondColFull = document.createElement('div');
+  $secondColFull.setAttribute('class', 'column-full');
+
+  var $description = document.createElement('p');
+  $description.setAttribute('class', 'description');
+  $description.textContent = entry.description;
+
+  var $thirdColFull = document.createElement('div');
+  $thirdColFull.setAttribute('class', 'column-full justify-align-center');
+  // $thirdColFull.setAttribute('class', 'justify-center');
+
+  var $heartContainter = document.createElement('div');
+  $heartContainter.setAttribute('class', 'heart');
+
+  var $heartIcon = document.createElement('img');
+  $heartIcon.setAttribute('src', 'images/heart (1).png');
+  $heartIcon.setAttribute('alt', 'heart-icon');
+  $heartIcon.setAttribute('class', 'object-fit hearts');
+
+  $listItem.appendChild($colFull1);
+  $colFull1.appendChild($imgContainer);
+  $imgContainer.appendChild($favImg);
+  // $imgContainer.appendChild($iframe);
+  $listItem.appendChild($row);
+  $row.appendChild($contentBox); // may need to add justify align here
+  $contentBox.appendChild($secondRow);
+  $secondRow.appendChild($colFull);
+  $colFull.append($title, $date);
+  $contentBox.appendChild($extraRow);
+
+  $extraRow.appendChild($secondColFull);
+  $secondColFull.appendChild($description);
+  $extraRow.appendChild($thirdColFull);
+  $thirdColFull.appendChild($heartContainter);
+  $heartContainter.appendChild($heartIcon);
+  return $listItem;
 }
+//       <img src="images/nasa.jpeg" alt="" class="images" />
+//     </div>
+//     <iframe class="hidden"></iframe>
+//   </div>
+// </div>
+// <div class="row justify-align-center">
+//   <div class="content-box">
+//     <div class="row">
+//       <div class="column-full display-flex space-around">
+//         <h1 class="title">Title of stars</h1>
+//         <h3 class="dateh3">DATE: 01/01/2022</h3>
+//       </div>
+//       <div class="row">
+//         <div class="column-full">
+//           <p class="description">
+//           </p>
+//         </div>
+//         <div class="column-full justify-center">
+//           <div class="heart">
+//             <img
+//               src="images/heart (1).png"
+//               alt="heart-icon"
+//               class="object-fit"
+//               id="heart-icon"
+//             />

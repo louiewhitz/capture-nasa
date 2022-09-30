@@ -134,8 +134,9 @@ img {
   justify-content: flex-end;
 }
 
-.title,
-.search-title {
+.startitle,
+.search-title,
+.title {
   color: #fff856;
   font-family: "Dancing Script", sans-serif;
   font-style: normal;
@@ -161,8 +162,9 @@ img {
   padding-right: 50px;
 }
 
-.description,
-.search-description {
+.start-description,
+.search-description,
+.description {
   font-family: Sansation, sans-serif;
   font-style: normal;
   font-weight: 400;
@@ -185,6 +187,14 @@ img {
 .heart-div {
   width: 60px;
   height: 60px;
+}
+
+#heart-icon:active {
+  transform: translateY(0.5rem);
+}
+
+.hearts:active {
+  transform: translateY(0.5rem);
 }
 
 .elipse {
@@ -263,9 +273,7 @@ ul {
 }
 
 #search-ul {
-  display: flex;
-  justify-content: center;
-  width: 100%;
+  list-style: none;
 }
 
 /* utility classes */

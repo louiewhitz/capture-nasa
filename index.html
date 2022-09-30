@@ -39,7 +39,7 @@
           </div>
           <div class="justify-align-center">
             <a
-              href="#favorites"
+              href="#favorites-page"
               class="favorites justify-align-center nav-tab"
               data-set="favorites-page"
               >Favorites</a
@@ -60,46 +60,47 @@
                   pain itself,.
                 </p>
               </div>
-            </div>
-            <div class="row">
-              <div class="column-full">
+
+              <div class="column-full justify-align-center">
                 <div class="image-container justify-center">
-                  <img src="images/nasa.jpeg" alt="" class="images" />
+                  <img src="images/nasa.jpeg" alt="" class="images" id="start-image" />
                 </div>
                 <iframe class="hidden"></iframe>
               </div>
-            </div>
-            <div class="row justify-align-center">
-              <div class="content-box">
-                <div class="row">
-                  <div class="column-full display-flex space-around">
-                    <h1 class="title">Title of stars</h1>
-                    <h3 class="dateh3">DATE: 01/01/2022</h3>
-                  </div>
+              <div class="row justify-align-center">
+
+                <div class="content-box justify-align-center">
                   <div class="row">
-                    <div class="column-full">
-                      <p class="description">
-                        Lorem Ipsum is simply dummy text of the printing and
-                        typesetting industry. Lorem Ipsum has been the
-                        industry's standard dummy text ever since the 1500s,
-                        when an unknown printer took a galley of type and
-                        scrambled it to make a type specimen book. It has
-                        survived not only five centuries, but also the leap into
-                        electronic typesetting, remaining essentially unchanged.
-                        It was popularised in the 1960s with the release of
-                        Letraset sheets containing Lorem Ipsum passages, and
-                        more recently with desktop publishing software like
-                        Aldus PageMaker including versions of Lorem Ipsum.
-                      </p>
+                    <div class="column-full display-flex space-around">
+                      <h1 class="startitle">Title of stars</h1>
+                      <h3 class="dateh3">DATE: 01/01/2022</h3>
                     </div>
-                    <div class="column-full justify-center">
-                      <div class="heart">
-                        <img
-                          src="images/heart (1).png"
-                          alt="heart-icon"
-                          class="object-fit"
-                          id="heart-icon"
-                        />
+                    <div class="row">
+                      <div class="column-full">
+                        <p class="start-description">
+                          Lorem Ipsum is simply dummy text of the printing and
+                          typesetting industry. Lorem Ipsum has been the
+                          industry's standard dummy text ever since the 1500s,
+                          when an unknown printer took a galley of type and
+                          scrambled it to make a type specimen book. It has
+                          survived not only five centuries, but also the leap into
+                          electronic typesetting, remaining essentially unchanged.
+                          It was popularised in the 1960s with the release of
+                          Letraset sheets containing Lorem Ipsum passages, and
+                          more recently with desktop publishing software like
+                          Aldus PageMaker including versions of Lorem Ipsum.
+                        </p>
+                      </div>
+                      <div class="column-full justify-center">
+                        <div class="heart-div">
+                          <a href="#start-heart" class="all-icons" id="link1" onclick="handleStartHeartClick"><img
+                            src="images/heart (1).png"
+                            alt="heart-icon"
+                            class="object-fit"
+                         
+                            data-heart="start-heart"
+                          /></a>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -144,9 +145,13 @@
           <div class="container">
             <div class="row">
               <div class="column-full">
-                <ul id="search-ul" class="display-flex"></ul>
+                <div class="image-container justify-center">
+                  <img src="images/nasa.jpeg" alt="" class="images" id="search-image"/>
+                </div>
+                <iframe class="hidden"></iframe>
               </div>
             </div>
+
             <div class="row justify-align-center">
               <div class="content-box">
                 <div class="row">
@@ -172,12 +177,13 @@
                     </div>
                     <div class="column-full justify-center">
                       <div class="heart-div">
-                        <img
-                          src="images/heart (1).png"
+                        <a href="#search-heart" id="link2" class="all-icons" onclick="handleHeartSearchClick"><img
+                          src="images/heart (3).png"
                           alt="heart-icon"
-                          class="search-icon"
+                          class="object-fit"
                           id="search-heart"
-                        />
+                          data-heart="search-heart"
+                        /></a>
                       </div>
                     </div>
                   </div>
@@ -186,7 +192,16 @@
             </div>
           </div>
         </div>
-        <div class="view" data-view="favorites-page" id="favorites"></div>
+
+        <div class="view hidden" data-view="favorites-page" id="favorites-page">
+          <ul class="container" id="search-ul">
+            <!-- <div class="row">
+              <ul class="column-full"> -->
+
+
+
+          </ul>
+        </div>
       </div>
     </main>
     <script src="js/data.js"></script>
