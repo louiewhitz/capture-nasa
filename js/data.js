@@ -3,12 +3,6 @@
 var nasa = {
   view: 'start-page',
   favorites: [],
-  results: [],
-  searchArr: [],
-  startResults: [],
-  startResult: 1,
-  searchResult: 1,
-  nextEntryId: 1,
   favId: 1
 };
 
