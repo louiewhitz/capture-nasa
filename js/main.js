@@ -54,7 +54,6 @@ function handleHeartSearchClick(event) {
 }
 
 var link1 = document.getElementById('link1');
-console.log(link1);
 link1.addEventListener('click', handleStartHeartClick);
 function handleStartHeartClick(event) {
   var curTitle = document.querySelector('.startitle');
@@ -123,11 +122,11 @@ function getNasaImg(image) {
   xhr.open('GET', nasaBaseUrl);
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
-    console.log('nasaImgResponse: ' + xhr.response.title);
     var title = xhr.response.title;
     var description = xhr.response.explanation;
     var imgUrl = xhr.response.url;
     var date = xhr.response.date;
+
     startDescription.textContent = description;
     starTitle.textContent = title;
     startimage.setAttribute('src', imgUrl);
@@ -162,14 +161,12 @@ function searchDay(time) {
   xhr.open('GET', nasaBaseUrl + `&date=${year.value}-${month.value}-${day.value}`);
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
-    console.log(xhr.response);
     var response = xhr.response;
     var description = response.explanation;
-    // // console.log('~ description of response', description);
     var imgUrl = response.url;
-    // // console.log('~ imgUrl', imgUrl);
     var title = response.title;
     var date = response.date;
+
     var searchImg = document.createElement('img');
     searchImg.setAttribute('src', imgUrl);
     var searchDescription = response.explanation;
@@ -178,6 +175,7 @@ function searchDay(time) {
       date: response.date,
       description: response.explanation,
       image: imgUrl,
+
       searchResult: nasa.searchResult
     };
     nasa.searchResult++;
@@ -230,6 +228,7 @@ function renderSearch(entry) {
   var img = entry.image;
   var description = entry.description;
   var date = entry.date;
+
   var searchImg = document.querySelector('#search-image');
   searchImg.setAttribute('src', img);
   var searchTitle = document.querySelector('.search-title');
@@ -243,6 +242,7 @@ function renderSearch(entry) {
     description,
     image: img,
     date
+
   };
   viewSwap('search-result');
 }
@@ -316,13 +316,13 @@ function renderFavorites(entry) {
   var anchor = document.createElement('a');
   anchor.setAttribute('href', '#delete');
   anchor.setAttribute('class', 'delete');
+
   anchor.addEventListener('click', deleteFavorite);
 
   var $deleteIcon = document.createElement('i');
   $deleteIcon.setAttribute('class', 'fa-solid fa-trash-can');
   $deleteIcon.setAttribute('data-set', entry.entry);
   anchor.appendChild($deleteIcon);
-  console.log('~ anchor', anchor);
 
   $listItem.appendChild($colFull1);
   $colFull1.appendChild($imgContainer);
@@ -350,7 +350,6 @@ function deleteFavorite(e) {
   var activeIcon = icon.getAttribute('data-set');
   for (var z = 0; z < nasa.favorites.length; z++) {
     var allEntries = nasa.favorites[z];
-    console.log('~ allEntries', allEntries);
     for (var i = 0; i < $allLi.length; i++) {
       var oneLi = $allLi[i];
       var activeLi = oneLi.getAttribute('entry');
