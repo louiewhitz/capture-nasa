@@ -15,6 +15,10 @@
   letter-spacing: 3px;
 }
 
+i.fa-check {
+  cursor: pointer;
+}
+
 .search {
   background:
     linear-gradient(
