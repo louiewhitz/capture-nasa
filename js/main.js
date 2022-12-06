@@ -282,7 +282,7 @@ function renderFavorites(entry) {
   $extraRow.setAttribute('class', 'row width justify-center');
 
   var $colFull = document.createElement('div');
-  $colFull.setAttribute('class', 'column-full display-flex space-around');
+  $colFull.setAttribute('class', 'column-full display-flex space-between');
 
   var $title = document.createElement('h1');
   $title.setAttribute('class', 'title');
@@ -332,11 +332,12 @@ function renderFavorites(entry) {
   $row.appendChild($contentBox);
   $contentBox.appendChild($secondRow);
   $secondRow.appendChild($colFull);
-  $colFull.append($title, $date);
+  $colFull.append($title);
   $contentBox.appendChild($extraRow);
 
   $extraRow.appendChild($secondColFull);
   $secondColFull.appendChild($description);
+  $secondColFull.appendChild($date);
   $extraRow.appendChild($thirdColFull);
   $thirdColFull.appendChild($heartContainter);
   $heartContainter.appendChild($heartIcon);
