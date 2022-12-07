@@ -2,13 +2,102 @@
   margin: 1rem auto;
 }
 
+.loader {
+  display: block;
+}
+
+.view-container > .loader {
+  display: flex;
+  margin: auto;
+}
+
+.lds-grid {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+  margin: 0 auto;
+}
+
+.lds-grid div {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #fff;
+  animation: lds-grid 1.2s linear infinite;
+}
+
+.lds-grid div:nth-child(1) {
+  top: 8px;
+  left: 8px;
+  animation-delay: 0s;
+}
+
+.lds-grid div:nth-child(2) {
+  top: 8px;
+  left: 32px;
+  animation-delay: -0.4s;
+}
+
+.lds-grid div:nth-child(3) {
+  top: 8px;
+  left: 56px;
+  animation-delay: -0.8s;
+}
+
+.lds-grid div:nth-child(4) {
+  top: 32px;
+  left: 8px;
+  animation-delay: -0.4s;
+}
+
+.lds-grid div:nth-child(5) {
+  top: 32px;
+  left: 32px;
+  animation-delay: -0.8s;
+}
+
+.lds-grid div:nth-child(6) {
+  top: 32px;
+  left: 56px;
+  animation-delay: -1.2s;
+}
+
+.lds-grid div:nth-child(7) {
+  top: 56px;
+  left: 8px;
+  animation-delay: -0.8s;
+}
+
+.lds-grid div:nth-child(8) {
+  top: 56px;
+  left: 32px;
+  animation-delay: -1.2s;
+}
+
+.lds-grid div:nth-child(9) {
+  top: 56px;
+  left: 56px;
+  animation-delay: -1.6s;
+}
+
+@keyframes lds-grid {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+}
+
 #h2nasa {
   font-family: "Source Sans Pro", sans-serif;
   font-style: normal;
   font-weight: 700;
   font-size: 46px;
-
-  /* identical to box height, or 75% */
   text-align: center;
   color: #10a9ff;
   letter-spacing: 3px;
@@ -100,10 +189,10 @@ a {
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
-  line-height: 27px;
+  line-height: 20px;
   text-align: center;
   color: #fff9fe;
-  margin-top: 0;
+  margin-top: 1%;
 }
 
 .image-container {
@@ -113,7 +202,7 @@ a {
 .images,
 .search-img {
   object-fit: scale-down;
-  width: 90%;
+  width: 95%;
   height: auto;
 }
 
@@ -129,7 +218,7 @@ img {
   flex-wrap: wrap;
   flex-direction: row;
   align-items: center;
-  margin-top: 3%;
+  margin-top: 2%;
   margin-bottom: 50px;
   position: relative;
 }
@@ -146,10 +235,8 @@ img {
   font-style: normal;
   font-weight: 700;
   font-size: 20px;
-
-  /* text-align: center; */
-
   text-shadow: none;
+  padding-left: 0.5%;
 }
 
 .dateh3,
@@ -157,16 +244,17 @@ img {
   font-family: "Recursive Mono Casual Static", sans-serif;
   font-style: normal;
   font-weight: 700;
-  font-size: 12px;
+  font-size: 14px;
   color: #13edfb;
   align-self: center;
   text-align: left;
+  padding-left: 0.5%;
 }
 
 .fa-trash-can {
-  width: 40px;
-  height: 40px;
-  color: #3a6d39;
+  width: 35px;
+  height: 35px;
+  color: #818781;
   position: absolute;
   font-size: 3em;
   right: 2%;
@@ -183,7 +271,7 @@ img {
   font-style: normal;
   font-weight: 400;
   font-size: 13.7468px;
-  line-height: 16px;
+  line-height: 20px;
   color: #e7dfdf;
   margin-top: 10px;
   padding-left: 5px;
@@ -199,7 +287,7 @@ img {
 
 .heart,
 .heart-div {
-  width: 60px;
+  width: 50px;
   height: 60px;
 }
 

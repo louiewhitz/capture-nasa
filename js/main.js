@@ -30,6 +30,8 @@ var startimage = document.querySelector('#start-image');
 var heartClick = document.querySelector('object-fit');
 form.addEventListener('submit', handleDate);
 var link2 = document.querySelector('#link2');
+const loader = document.querySelector('.loader');
+
 link2.addEventListener('click', handleHeartSearchClick);
 
 function handleHeartSearchClick(event) {
@@ -114,9 +116,6 @@ function handleNav(event) {
 
 var nasaBaseUrl = `https://api.nasa.gov/planetary/apod?api_key=${apiKey}`;
 
-// https://api.nasa.gov/planetary/apod?api_key=dEkS7Nd0bnEcjS4WEJ5h1RkyG0SPAtHAeqohZ7Dq
-
-// addEventListener functions
 function getNasaImg(image) {
   var xhr = new XMLHttpRequest();
   xhr.open('GET', nasaBaseUrl);
@@ -146,6 +145,7 @@ function getNasaImg(image) {
 getNasaImg(nasa);
 function handleDate(event) {
   event.preventDefault();
+  loader.className = 'loader';
   var currentDay = day.value;
   var currentMonth = month.value;
   var currentYear = year.value;
@@ -154,6 +154,7 @@ function handleDate(event) {
   searchDate.setAttribute('value', `${currentYear}-${currentMonth}-${currentDay}`);
   searchDay(searchDate);
   form.reset();
+  loader.className = 'loader hidden';
 }
 
 function searchDay(time) {
@@ -203,8 +204,10 @@ function DOMloaded() {
   for (var i = 0; i < nasa.favorites.length; i++) {
     var previousEntry = renderFavorites(nasa.favorites[i]);
     searchUl.append(previousEntry);
+    loader.className = 'loader';
   }
   viewSwap('favorites-page');
+  loader.className = 'loader hidden';
 }
 
 function todaysQuote(quote) {
@@ -224,6 +227,7 @@ function todaysQuote(quote) {
 todaysQuote(name);
 
 function renderSearch(entry) {
+  loader.className = 'loader';
   var title = entry.title;
   var img = entry.image;
   var description = entry.description;
@@ -245,6 +249,7 @@ function renderSearch(entry) {
 
   };
   viewSwap('search-result');
+  loader.className = 'loader-hidden';
 }
 
 function renderFavorites(entry) {
