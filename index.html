@@ -21,6 +21,10 @@
   </head>
   <body>
     <!--Loader-->
+    <div class="loader">
+      <img src="/images/rocket-pink.svg" alt="" class="rocket">
+    
+    </div>
 
     <header class="container margin-top nav-bar">
       <div class="row space-evenly">
@@ -52,19 +56,6 @@
     </header>
     <main>
       <div class="view-container">
-        <div class="loader hidden">
-          <div class="lds-grid">
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-          </div>
-        </div>
         <div class="view" data-view="start-page" id="start-page">
           <div class="container">
             <div class="row">
@@ -157,7 +148,7 @@
                     <input type="number" name="year" id="year" />
                   </div>
                   <div class="check">
-                    <button type="submit">
+                    <button type="submit" id="searchBtn">
                       <i class="fa-solid fa-check"></i>
                     </button>
                   </div>

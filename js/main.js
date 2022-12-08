@@ -2,49 +2,53 @@
 /* eslint-disable no-unused-vars */
 
 /* global nasa */
-var navBar = document.querySelector('.nav-bar');
-var navTab = document.querySelectorAll('.nav-tab');
-var view = document.querySelectorAll('.view');
-var viewContainer = document.querySelector('.view-container');
-var allIcons = document.querySelectorAll('.all-icons');
-var heartDiv = document.querySelector('.heart-div');
-var $heart = document.querySelector('#heart-icon');
-var todayQUrl = 'https://api.quotable.io/random';
-var apiKey = 'FBXb07IIDEucETFgOd4i8dqsC9qxqeJqGru7sCKy';
-var dateValue = {};
-var form = document.querySelector('#date-form');
-var day = document.querySelector('#day');
-var month = document.querySelector('#month');
-var year = document.querySelector('#year');
-var iframe = document.querySelector('iframe');
-var searchResultPage = document.querySelector('#search-result');
-var startView = document.querySelector('[data-view=start-page]');
-var resultView = document.querySelector('[data-view=search-result]');
-var searchView = document.querySelector('[data-view=search-page]');
-var favoritesView = document.querySelector('[data-view=favorites-page]');
-var searchUl = document.querySelector('#search-ul');
-var startDescription = document.querySelector('.start-description');
-var dateh3 = document.querySelector('.dateh3');
-var starTitle = document.querySelector('.startitle');
-var startimage = document.querySelector('#start-image');
-var heartClick = document.querySelector('object-fit');
+const navBar = document.querySelector('.nav-bar');
+const navTab = document.querySelectorAll('.nav-tab');
+const view = document.querySelectorAll('.view');
+const viewContainer = document.querySelector('.view-container');
+const allIcons = document.querySelectorAll('.all-icons');
+const heartDiv = document.querySelector('.heart-div');
+const $heart = document.querySelector('#heart-icon');
+const todayQUrl = 'https://api.quotable.io/random';
+const apiKey = 'FBXb07IIDEucETFgOd4i8dqsC9qxqeJqGru7sCKy';
+const dateValue = {};
+const form = document.querySelector('#date-form');
+const day = document.querySelector('#day');
+const month = document.querySelector('#month');
+const year = document.querySelector('#year');
+const iframe = document.querySelector('iframe');
+const searchResultPage = document.querySelector('#search-result');
+const startView = document.querySelector('[data-view=start-page]');
+const resultView = document.querySelector('[data-view=search-result]');
+const searchView = document.querySelector('[data-view=search-page]');
+const favoritesView = document.querySelector('[data-view=favorites-page]');
+const searchUl = document.querySelector('#search-ul');
+const startDescription = document.querySelector('.start-description');
+const dateh3 = document.querySelector('.dateh3');
+const starTitle = document.querySelector('.startitle');
+const startimage = document.querySelector('#start-image');
+const heartClick = document.querySelector('object-fit');
 form.addEventListener('submit', handleDate);
-var link2 = document.querySelector('#link2');
+const link2 = document.querySelector('#link2');
 const loader = document.querySelector('.loader');
+const $searchBtn = document.querySelector('#searchBtn');
+
+$searchBtn.addEventListener('click', checkSearchResult);
 
 link2.addEventListener('click', handleHeartSearchClick);
 
 function handleHeartSearchClick(event) {
-  var currentTitle = document.querySelector('.search-title');
-  var currentDate = document.querySelector('.search-date');
-  var currentSearchDescription = document.querySelector('.search-description');
-  var newTitle = currentTitle.textContent;
-  var newDate = currentDate.textContent;
-  var newDescription = currentSearchDescription.textContent;
-  var currentImg = document.querySelector('#search-image');
-  var url = currentImg.getAttribute('src');
-  var newImg = url;
-  var newEntry = {
+  console.log('handleheart event', event.target);
+  const currentTitle = document.querySelector('.search-title');
+  const currentDate = document.querySelector('.search-date');
+  const currentSearchDescription = document.querySelector('.search-description');
+  const newTitle = currentTitle.textContent;
+  const newDate = currentDate.textContent;
+  const newDescription = currentSearchDescription.textContent;
+  const currentImg = document.querySelector('#search-image');
+  const url = currentImg.getAttribute('src');
+  const newImg = url;
+  const newEntry = {
     title: newTitle,
     date: newDate,
     image: newImg,
@@ -58,6 +62,7 @@ function handleHeartSearchClick(event) {
 var link1 = document.getElementById('link1');
 link1.addEventListener('click', handleStartHeartClick);
 function handleStartHeartClick(event) {
+  console.log('handleHeartSearchClick event', event.target);
   var curTitle = document.querySelector('.startitle');
   var newTitle = curTitle.textContent;
   var currentDescription = document.querySelector('.start-description');
@@ -117,51 +122,105 @@ function handleNav(event) {
 var nasaBaseUrl = `https://api.nasa.gov/planetary/apod?api_key=${apiKey}`;
 
 function getNasaImg(image) {
-  var xhr = new XMLHttpRequest();
+  const xhr = new XMLHttpRequest();
   xhr.open('GET', nasaBaseUrl);
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
-    var title = xhr.response.title;
-    var description = xhr.response.explanation;
-    var imgUrl = xhr.response.url;
-    var date = xhr.response.date;
+    const title = xhr.response.title;
+    const description = xhr.response.explanation;
+    const imgUrl = xhr.response.url;
+    const date = xhr.response.date;
 
     startDescription.textContent = description;
     starTitle.textContent = title;
     startimage.setAttribute('src', imgUrl);
     startimage.setAttribute('class', 'images');
     dateh3.textContent = date;
-    var startEntry = {
+    const startEntry = {
       title,
       description,
       image: imgUrl,
       date,
       entry: nasa.startResult
     };
+    if (xhr.status !== 200) {
+      const nasaInitialReq = document.querySelector('#start-page');
+      console.log('🚀 ~ nasaInitialReq', nasaInitialReq);
+      const reqError = renderRequestServer();
+      nasaInitialReq.appendChild(reqError);
+
+    }
   });
   xhr.send();
-
 }
 getNasaImg(nasa);
+
 function handleDate(event) {
+  console.log('handleDate event target', event.target);
   event.preventDefault();
-  loader.className = 'loader';
-  var currentDay = day.value;
-  var currentMonth = month.value;
-  var currentYear = year.value;
-  var searchDate = document.createElement('input');
+
+  const currentDay = day.value;
+  const currentMonth = month.value;
+  const currentYear = year.value;
+  const searchDate = document.createElement('input');
   searchDate.type = 'date';
-  searchDate.setAttribute('value', `${currentYear}-${currentMonth}-${currentDay}`);
+  searchDate.setAttribute(
+    'value',
+    `${currentYear}-${currentMonth}-${currentDay}`
+  );
   searchDay(searchDate);
   form.reset();
-  loader.className = 'loader hidden';
+}
+
+function renderRequestServer() {
+  const $errorMessage = document.createElement('p');
+  $errorMessage.textContent = "I'm sorry, NASA does not have any images for this day";
+  $errorMessage.className = 'search-description';
+  return $errorMessage;
+
+}
+
+function renderSearchReqError() {
+  const $searchErrDiv = document.createElement('div');
+  $searchErrDiv.className = 'column-full';
+  const $searchErrMsg = document.createElement('p');
+  $searchErrMsg.className = 'search-description';
+  $searchErrMsg.textContent = 'Sorry, make sure that you are searching above the year 1998. It may also be a video, which has yet to be rendered.';
+  $searchErrDiv.appendChild($searchErrMsg);
+  return $searchErrDiv;
+
+}
+function checkSearchResult(event) {
+  console.log(event.target);
+
+  const $loadSpinner = renderLoadingSpinner();
+
+}
+
+function renderLoadingSpinner() {
+  const $spinContainer = document.createElement('div');
+  $spinContainer.className = 'row align-center justify-center loader';
+  const $rocket = document.createElement('img');
+  $rocket.setAttribute('src', '/images/rocket-pink.svg');
+  $rocket.className = 'rocket';
+  $spinContainer.appendChild($rocket);
+  return $spinContainer;
 }
 
 function searchDay(time) {
   var xhr = new XMLHttpRequest();
-  xhr.open('GET', nasaBaseUrl + `&date=${year.value}-${month.value}-${day.value}`);
+  xhr.open(
+    'GET',
+    nasaBaseUrl + `&date=${year.value}-${month.value}-${day.value}`
+  );
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
+    if (xhr.status !== 200) {
+      const searchP = document.querySelector('#search-result');
+      const searchErr = renderSearchReqError();
+      searchP.appendChild(searchErr);
+      return searchP;
+    }
     var response = xhr.response;
     var description = response.explanation;
     var imgUrl = response.url;
@@ -186,6 +245,9 @@ function searchDay(time) {
 }
 
 function saveImg(entry) {
+  loader.className = 'loader';
+  console.log('🚀 ~  loader', loader);
+  console.log('saveImg entry', entry);
   nasa.favorites.unshift(entry);
   nasa.favId++;
   load(entry);
@@ -193,25 +255,31 @@ function saveImg(entry) {
 }
 
 function load(entry) {
-  var newEntry = renderFavorites(entry);
+
+  console.log('load entry', entry);
+  const newEntry = renderFavorites(entry);
   searchUl.prepend(newEntry);
   viewSwap('favorites-page');
+  loader.className = 'loader hidden';
 }
 
 window.addEventListener('DOMContentLoaded', DOMloaded);
 
 function DOMloaded() {
-  for (var i = 0; i < nasa.favorites.length; i++) {
-    var previousEntry = renderFavorites(nasa.favorites[i]);
+  console.log('dom loaded', event);
+  for (let i = 0; i < nasa.favorites.length; i++) {
+    const previousEntry = renderFavorites(nasa.favorites[i]);
     searchUl.append(previousEntry);
-    loader.className = 'loader';
   }
-  viewSwap('favorites-page');
+  console.log('searchUl', searchUl);
   loader.className = 'loader hidden';
+  console.log('🚀 ~  loader', loader);
+
+  viewSwap('favorites-page');
 }
 
 function todaysQuote(quote) {
-  var xhr = new XMLHttpRequest();
+  const xhr = new XMLHttpRequest();
   xhr.open('GET', todayQUrl);
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
@@ -226,30 +294,34 @@ function todaysQuote(quote) {
 }
 todaysQuote(name);
 
-function renderSearch(entry) {
-  loader.className = 'loader';
-  var title = entry.title;
-  var img = entry.image;
-  var description = entry.description;
-  var date = entry.date;
+function showContent(view) {
+  loader.classList.remove('hidden');
+  if (view === 'start-page') {
+    loader.classList.add('hidden');
 
-  var searchImg = document.querySelector('#search-image');
+  }
+}
+
+function renderSearch(entry) {
+  const title = entry.title;
+  const img = entry.image;
+  const description = entry.description;
+  const date = entry.date;
+  const searchImg = document.querySelector('#search-image');
   searchImg.setAttribute('src', img);
-  var searchTitle = document.querySelector('.search-title');
+  const searchTitle = document.querySelector('.search-title');
   searchTitle.textContent = title;
-  var searchDescription = document.querySelector('.search-description');
-  var searchD = document.querySelector('.search-date');
+  const searchDescription = document.querySelector('.search-description');
+  const searchD = document.querySelector('.search-date');
   searchD.textContent = date;
   searchDescription.textContent = description;
-  var responseObj = {
+  const responseObj = {
     title,
     description,
     image: img,
     date
-
   };
   viewSwap('search-result');
-  loader.className = 'loader-hidden';
 }
 
 function renderFavorites(entry) {
