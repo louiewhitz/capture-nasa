@@ -27,13 +27,15 @@ const startDescription = document.querySelector('.start-description');
 const dateh3 = document.querySelector('.dateh3');
 const starTitle = document.querySelector('.startitle');
 const startimage = document.querySelector('#start-image');
+
 const heartClick = document.querySelector('object-fit');
 form.addEventListener('submit', handleDate);
+form.addEventListener('click', spin);
 const link2 = document.querySelector('#link2');
 const loader = document.querySelector('.loader');
 const $searchBtn = document.querySelector('#searchBtn');
 
-$searchBtn.addEventListener('click', checkSearchResult);
+$searchBtn.addEventListener('click', spin);
 
 link2.addEventListener('click', handleHeartSearchClick);
 
@@ -130,7 +132,6 @@ function getNasaImg(image) {
     const description = xhr.response.explanation;
     const imgUrl = xhr.response.url;
     const date = xhr.response.date;
-
     startDescription.textContent = description;
     starTitle.textContent = title;
     startimage.setAttribute('src', imgUrl);
@@ -143,13 +144,6 @@ function getNasaImg(image) {
       date,
       entry: nasa.startResult
     };
-    if (xhr.status !== 200) {
-      const nasaInitialReq = document.querySelector('#start-page');
-      console.log('🚀 ~ nasaInitialReq', nasaInitialReq);
-      const reqError = renderRequestServer();
-      nasaInitialReq.appendChild(reqError);
-
-    }
   });
   xhr.send();
 }
@@ -172,42 +166,19 @@ function handleDate(event) {
   form.reset();
 }
 
-function renderRequestServer() {
-  const $errorMessage = document.createElement('p');
-  $errorMessage.textContent = "I'm sorry, NASA does not have any images for this day";
-  $errorMessage.className = 'search-description';
-  return $errorMessage;
-
+const spinDiv = document.querySelector('.spin-div');
+const myInterval = setTimeout(spin, 2000);
+function clearSpin() {
+  clearInterval(myInterval);
+  spinDiv.className = 'spin-div hidden';
 }
-
-function renderSearchReqError() {
-  const $searchErrDiv = document.createElement('div');
-  $searchErrDiv.className = 'column-full';
-  const $searchErrMsg = document.createElement('p');
-  $searchErrMsg.className = 'search-description';
-  $searchErrMsg.textContent = 'Sorry, make sure that you are searching above the year 1998. It may also be a video, which has yet to be rendered.';
-  $searchErrDiv.appendChild($searchErrMsg);
-  return $searchErrDiv;
-
-}
-function checkSearchResult(event) {
-  console.log(event.target);
-
-  const $loadSpinner = renderLoadingSpinner();
-
-}
-
-function renderLoadingSpinner() {
-  const $spinContainer = document.createElement('div');
-  $spinContainer.className = 'row align-center justify-center loader';
-  const $rocket = document.createElement('img');
-  $rocket.setAttribute('src', '/images/rocket-pink.svg');
-  $rocket.className = 'rocket';
-  $spinContainer.appendChild($rocket);
-  return $spinContainer;
+function spin(event) {
+  spinDiv.className = 'spin-div';
+  clearSpin();
 }
 
 function searchDay(time) {
+
   var xhr = new XMLHttpRequest();
   xhr.open(
     'GET',
@@ -215,12 +186,6 @@ function searchDay(time) {
   );
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
-    if (xhr.status !== 200) {
-      const searchP = document.querySelector('#search-result');
-      const searchErr = renderSearchReqError();
-      searchP.appendChild(searchErr);
-      return searchP;
-    }
     var response = xhr.response;
     var description = response.explanation;
     var imgUrl = response.url;
@@ -242,6 +207,7 @@ function searchDay(time) {
     renderSearch(searchValues);
   });
   xhr.send();
+
 }
 
 function saveImg(entry) {
@@ -260,7 +226,6 @@ function load(entry) {
   const newEntry = renderFavorites(entry);
   searchUl.prepend(newEntry);
   viewSwap('favorites-page');
-  loader.className = 'loader hidden';
 }
 
 window.addEventListener('DOMContentLoaded', DOMloaded);
@@ -272,8 +237,6 @@ function DOMloaded() {
     searchUl.append(previousEntry);
   }
   console.log('searchUl', searchUl);
-  loader.className = 'loader hidden';
-  console.log('🚀 ~  loader', loader);
 
   viewSwap('favorites-page');
 }
@@ -292,15 +255,8 @@ function todaysQuote(quote) {
   });
   xhr.send();
 }
+
 todaysQuote(name);
-
-function showContent(view) {
-  loader.classList.remove('hidden');
-  if (view === 'start-page') {
-    loader.classList.add('hidden');
-
-  }
-}
 
 function renderSearch(entry) {
   const title = entry.title;
