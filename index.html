@@ -10,6 +10,12 @@
     <link rel="stylesheet" href="css/styles.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,300&display=swap"
+      rel="stylesheet"
+    />
     <link
       href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;700&display=swap"
       rel="stylesheet"
@@ -21,7 +27,7 @@
   </head>
   <body>
     <!--Loader-->
-    <div class="spin-div">
+    <div id="spin-div">
       <div class="loader">
         <img src="/images/rocket-pink.svg" alt="" class="rocket" />
       </div>
@@ -29,7 +35,7 @@
         <span class="spin-text">...loading</span>
       </div>
     </div>
-   
+
     <header class="container margin-top nav-bar">
       <div class="row space-evenly">
         <div class="column-half justify-align-center">
@@ -72,15 +78,18 @@
               </div>
 
               <div class="column-full justify-align-center">
-                <div class="image-container justify-center">
+                <div class="image-container justify-center video">
                   <img
                     src="images/nasa.jpeg"
                     alt=""
                     class="images"
                     id="start-image"
                   />
+                    <iframe class="vid hidden" src="images/nasa.jpeg" id="vid-frame"></iframe>
                 </div>
-                <iframe class="hidden"></iframe>
+                
+            
+                
               </div>
               <div class="row justify-align-center">
                 <div class="content-box justify-align-center">
@@ -163,20 +172,21 @@
         </div>
         <div class="view hidden" data-view="search-result" id="search-result">
           <!-- loader -->
-        
-      
+
           <div class="container">
             <div class="row">
               <div class="column-full">
-                <div class="image-container justify-center">
+                <div class="image-container justify-center check-vid">
                   <img
                     src="images/nasa.jpeg"
                     alt=""
                     class="images"
                     id="search-image"
                   />
+                  <iframe class="images hidden"
+                src="images/apod.jpeg"></iframe>
                 </div>
-                <iframe class="hidden"></iframe>
+               
               </div>
             </div>
 
@@ -227,6 +237,13 @@
         </div>
         <div class="view hidden" data-view="favorites-page" id="favorites-page">
           <ul class="container" id="search-ul"></ul>
+        </div>
+        <div class="view hidden" data-view="error-page" id="error-page">
+          <div class="container">
+            <div class="justify-align align-center">
+              <h1 class="err-msg"></h1>
+            </div>
+          </div>
         </div>
       </div>
     </main>

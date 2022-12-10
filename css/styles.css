@@ -1,3 +1,42 @@
+#spin-div {
+  position: fixed;
+  display: flex;
+  z-index: 10;
+  justify-content: center;
+  align-items: center;
+  background-color: #4a4f4a;
+  width: 100vw;
+  height: 100vh;
+  border: 2px solid black;
+  margin: 0 auto;
+  display: none;
+}
+
+#spin-div.view {
+  display: block;
+}
+
+.loader {
+  display: flex;
+  z-index: 10;
+  justify-content: center;
+  align-items: center;
+  background-color: #4a4f4a;
+  width: 100vw;
+  height: 100vh;
+}
+
+.rocket {
+  object-fit: contain;
+  width: 80px;
+}
+
+.spin-text {
+  color: rgb(180, 180, 189);
+  font-size: 1.5em;
+  padding-top: 8%;
+}
+
 .margin-top {
   margin: 1rem auto;
 }
@@ -16,18 +55,6 @@ i.fa-check {
   cursor: pointer;
 }
 
-.spin-div {
-  position: fixed;
-  display: flex;
-  z-index: 10;
-  justify-content: center;
-  align-items: center;
-  background-color: #4a4f4a;
-  width: 100vw;
-  height: 100vh;
-  border: 2px solid black;
-  margin: 0 auto;
-}
 
 /*
 .loader {
@@ -35,16 +62,18 @@ i.fa-check {
 
 } */
 
-.rocket {
-  object-fit: contain;
-  width: 80px;
+#loading {
+  width: 2rem;
+  height: 2rem;
+  border: 5px solid #10a9ff;
+  border-top: 6px solid blueviolet;
+  border-radius: 100%;
+  margin: auto;
+  visibility: hidden;
+
 }
 
-.spin-text {
-  color: rgb(180, 180, 189);
-  font-size: 1.5em;
-  padding-top: 8%;
-}
+
 
 .search {
   background:
@@ -139,6 +168,7 @@ a {
 }
 
 .images,
+.vid, 
 .search-img {
   object-fit: fill;
   width: 90%;
@@ -148,6 +178,49 @@ a {
 img {
   width: 100%;
 }
+
+iframe {
+  width: 100%;
+  height: auto;
+  object-fit: fill;
+}
+
+.check-vid > iframe {
+  width: 80em;
+  height: 60em;
+}
+
+.video > iframe {
+  width: 80em;
+  height: 60em;
+}
+
+/* .wrapper {
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  background: #ffffff;
+} */
+
+/* .h-iframe {
+  position: relative;
+}
+
+.h-iframe .ratio {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.h-iframe iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+} */
+
+
 
 .content-box {
   border: 3px solid #000;
@@ -354,6 +427,13 @@ ul {
   align-items: flex-end;
 }
 
+.err-msg {
+  margin: 5% auto;
+  color: rgb(242, 144, 144);
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700;
+}
+
 .modal-btns > button {
   font-size: 1rem;
   padding: 10px 20px;
@@ -400,9 +480,9 @@ ul {
   justify-content: flex-end;
 }
 
-iframe {
+/* iframe {
   margin: 0 auto;
-}
+} */
 
 .justify-center {
   display: flex;

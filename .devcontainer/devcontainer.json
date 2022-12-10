@@ -23,7 +23,8 @@
 		"wscats.html-snippets",
 		"JakeBecker.elixir-ls",
 		"TabNine.tabnine-vscode",
-		"ChakrounAnas.turbo-console-log"
+		"ChakrounAnas.turbo-console-log",
+		"nathanchapman.javascriptsnippets"
 	]
     }
   },
