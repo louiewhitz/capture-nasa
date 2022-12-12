@@ -141,9 +141,10 @@ function getNasaImg(image) {
   xhr.open('GET', nasaBaseUrl);
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
-    if (xhr.status === 400 || xhr.status === 404) {
+    if (xhr.status === 400) {
 
       const responseErr = xhr.response.msg;
+      console.log('🚀 ~ responseErr', responseErr);
       const errorMsg = document.querySelector('.err-msg');
       errorMsg.textContent = `Sorry, here is the error message from Nasa: '${responseErr}'`;
       viewSwap('error-page');
@@ -227,7 +228,7 @@ function searchDay(time) {
   xhr.addEventListener('load', function () {
     if (xhr.status === 400 || xhr.status === 404) {
       const responseErr = xhr.response.msg;
-      const errorMsg = document.querySelector('.errMsg');
+      const errorMsg = document.querySelector('.err-msg');
       errorMsg.textContent = `Sorry, here is the error message from Nasa: '${responseErr}'`;
       viewSwap('error-page');
 
