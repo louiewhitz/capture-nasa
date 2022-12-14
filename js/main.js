@@ -27,6 +27,9 @@ const startDescription = document.querySelector('.start-description');
 const dateh3 = document.querySelector('.dateh3');
 const starTitle = document.querySelector('.startitle');
 const startimage = document.querySelector('#start-image');
+const $iframe = document.querySelector('iframe');
+const searchImg = document.querySelector('#search-image');
+const checkVid = document.querySelector('.check-vid');
 
 const heartClick = document.querySelector('object-fit');
 form.addEventListener('submit', handleDate);
@@ -38,7 +41,7 @@ const $searchBtn = document.querySelector('#searchBtn');
 link2.addEventListener('click', handleHeartSearchClick);
 
 function handleHeartSearchClick(event) {
-  console.log('handleheart event', event.target);
+
   const currentTitle = document.querySelector('.search-title');
   const currentDate = document.querySelector('.search-date');
   const currentSearchDescription = document.querySelector('.search-description');
@@ -47,13 +50,28 @@ function handleHeartSearchClick(event) {
   const newDescription = currentSearchDescription.textContent;
   const currentImg = document.querySelector('#search-image');
   const url = currentImg.getAttribute('src');
+  const vidUrl = document.querySelector('#searchVid');
+  const vidSrc = vidUrl.getAttribute('src');
+  console.log('🚀 ~ vidSrc', vidSrc);
+  let media = currentImg.getAttribute('data-version');
+  console.log('🚀 ~ media', media);
+  if (media === 'image') {
+    media = 'image';
+  } else if (media === 'video') {
+    media = 'video';
+  }
+
+  console.log('🚀 ~ media', media);
+  console.log('🚀 ~ url', url);
   const newImg = url;
+  console.log('🚀 ~ newImg', newImg);
   const newEntry = {
     title: newTitle,
     date: newDate,
     image: newImg,
     description: newDescription,
-    entry: nasa.favId
+    entry: nasa.favId,
+    media
   };
   saveImg(newEntry);
   viewSwap('favorites-page');
@@ -62,7 +80,7 @@ function handleHeartSearchClick(event) {
 const link1 = document.getElementById('link1');
 link1.addEventListener('click', handleStartHeartClick);
 function handleStartHeartClick(event) {
-  console.log('handleHeartSearchClick event', event.target);
+
   const curTitle = document.querySelector('.startitle');
   const newTitle = curTitle.textContent;
   const currentDescription = document.querySelector('.start-description');
@@ -71,13 +89,32 @@ function handleStartHeartClick(event) {
   const newDate = curDate.textContent;
   const curImage = document.querySelector('#start-image');
   const imgUrl = curImage.getAttribute('src');
+  const vidUrl = document.querySelector('#vid-frame');
+  const vidSrc = vidUrl.getAttribute('src');
+  console.log('🚀 ~ vidSrc', vidSrc);
+  const vidData = vidUrl.getAttribute('data-version');
+  console.log('🚀 ~ vidData', vidData);
+
+  let media = curImage.getAttribute('data-version');
+  if (media === 'image') {
+    media = 'image';
+  } else if (media === 'video') {
+    media = 'video';
+  }
+
+  console.log('🚀 ~ imgUrl', imgUrl);
+
+  console.log('🚀 ~ media in like button', media);
   const newEntry = {
     title: newTitle,
     date: newDate,
     description: newDescription,
     image: imgUrl,
-    entry: nasa.favId
+
+    entry: nasa.favId,
+    media
   };
+  console.log('new entry', newEntry);
   saveImg(newEntry);
 }
 const errorPage = document.querySelector('[data-view=error-page]');
@@ -149,22 +186,32 @@ function getNasaImg(image) {
       errorMsg.textContent = `Sorry, here is the error message from Nasa: '${responseErr}'`;
       viewSwap('error-page');
     } else if (xhr.status === 200) {
+      const response = xhr.response;
       const title = xhr.response.title;
       const description = xhr.response.explanation;
       const imgUrl = xhr.response.url;
+      console.log('🚀 ~ imgUrl', imgUrl);
       const date = xhr.response.date;
-      const media = xhr.response.media_type;
+      let media = xhr.response.media_type;
+      console.log('🚀 ~ media in get nasa ', media);
+      const vidFrame = document.createElement('iframe');
+      vidFrame.setAttribute('data-version', 'video');
+      vidFrame.className = 'vid hidden';
 
       if (media === 'video') {
         videoFrame.setAttribute('src', imgUrl);
         videoFrame.className = 'vid';
         startimage.className = 'hidden';
+        videoFrame.setAttribute('data-version', 'video');
+        media = 'video';
 
       } else if (media === 'image') {
         videoFrame.className = 'vid hidden';
+        media = 'image';
 
         startimage.setAttribute('src', imgUrl);
         startimage.setAttribute('class', 'images');
+        startimage.setAttribute('data-version', 'image');
       }
       startDescription.textContent = description;
       starTitle.textContent = title;
@@ -172,6 +219,8 @@ function getNasaImg(image) {
 
       console.log(xhr.response);
       const startEntry = {
+        response,
+
         title,
         description,
         image: imgUrl,
@@ -179,6 +228,7 @@ function getNasaImg(image) {
         media,
         entry: nasa.startResult
       };
+      console.log('🚀 ~ startEntry ', startEntry);
     }
   });
   xhr.send();
@@ -213,7 +263,7 @@ function displayLoading() {
 }
 
 function hideLoading() {
-  spinDiv.classList.remove('display');
+  spinDiv.classList.remove('view');
 }
 
 function searchDay(time) {
@@ -233,22 +283,30 @@ function searchDay(time) {
       viewSwap('error-page');
 
     } else if (xhr.status === 200) {
+
       const response = xhr.response;
+      console.log('🚀 ~ response', response);
       const description = response.explanation;
       const imgUrl = response.url;
+      const media = response.media_type;
+
+      console.log('🚀 ~ media in search xhr', media);
+      // imgUrl.setAttribute('data-version', media);
+
       const title = response.title;
       const date = response.date;
-      const media = response.media_type;
+      console.log('🚀 ~ media', media);
       const searchDescription = response.explanation;
       const searchValues = {
         title: response.title,
         date: response.date,
         description: response.explanation,
         image: imgUrl,
-        media: response.media_type,
+        media,
 
         searchResult: nasa.searchResult
       };
+      console.log('🚀 ~ searchValues ', searchValues);
 
       console.log(searchValues);
       nasa.searchResult++;
@@ -261,14 +319,17 @@ function searchDay(time) {
 }
 
 function saveImg(entry) {
+  console.log('🚀 ~ entry in SAVE IMAGE', entry);
 
   nasa.favorites.unshift(entry);
   nasa.favId++;
   load(entry);
+  console.log('save image in entry', entry);
   viewSwap('favorites-page');
 }
 
 function load(entry) {
+  console.log('🚀 ~ entry in load entry', entry);
   const newEntry = renderFavorites(entry);
   searchUl.prepend(newEntry);
   viewSwap('favorites-page');
@@ -299,24 +360,26 @@ function todaysQuote(quote) {
   });
   xhr.send();
 }
-const $iframe = document.querySelector('iframe');
-const searchImg = document.querySelector('#search-image');
-
 todaysQuote(name);
-const checkVid = document.querySelector('.check-vid');
+
 function renderSearch(entry) {
+  console.log('render search entry', entry);
   const media = entry.media;
+  console.log('🚀 ~ media ', media);
 
   const title = entry.title;
+  console.log('🚀 ~ title', title);
   const img = entry.image;
+  console.log('🚀 ~ img', img);
 
   const description = entry.description;
   const date = entry.date;
-  if (entry.media === 'video') {
+  if (media === 'video') {
     searchImg.className = 'hidden';
 
     $iframe.setAttribute('src', img);
-    $iframe.className = 'images';
+    $iframe.className = 'vid';
+    $iframe.setAttribute('data-version', 'video');
 
     checkVid.appendChild($iframe);
 
@@ -327,22 +390,10 @@ function renderSearch(entry) {
 
     searchImg.className = 'images';
     searchImg.setAttribute('src', img);
+    searchImg.setAttribute('data-version', 'image');
+    checkVid.appendChild(searchImg);
 
   }
-
-  // if (img.tagName === 'VIDEO') {
-  //   const iframe = document.querySelector('iframe');
-  //   iframe.className = 'view';
-  //   iframe.setAttribute('src', img);
-  //   const searchImg = document.querySelector('images');
-  //   searchImg.className = 'hidden';
-
-  // } else if (img.tagName === 'IMG') {
-  // const searchImg = document.querySelector('#search-image');
-
-  // searchImg.setAttribute('src', img);
-
-  // }
 
   const searchTitle = document.querySelector('.search-title');
   searchTitle.textContent = title;
@@ -354,31 +405,61 @@ function renderSearch(entry) {
     title,
     description,
     image: img,
-    date
+    date,
+    media
   };
+  console.log('response Object in search', responseObj);
   viewSwap('search-result');
 }
 
 function renderFavorites(entry) {
   console.log('🚀 ~ entry', entry);
-
-  var newEntry = this.entry;
-  console.log('🚀 ~ newEntry', newEntry);
-  var $listItem = document.createElement('li');
+  console.log('favorites IMG', entry.image);
+  // const image = entry.image;
+  // const version = image.getAttribute('data-version');
+  // console.log('🚀 ~ version', version);
+  console.log('entry midea IN FAV', entry.media);
+  //  const version = entry.image.getAttribute('data-version');
+  // console.log('🚀 ~ version', version);
+  const $listItem = document.createElement('li');
   $listItem.setAttribute('class', 'row justify-align-center');
   $listItem.setAttribute('entry', entry.entry);
   console.log('🚀 ~ entry.entry', entry.entry);
 
-  var $colFull1 = document.createElement('div');
+  const $colFull1 = document.createElement('div');
   $colFull1.setAttribute('class', 'column-full justify-align-center');
+  const $favVideo = document.createElement('iframe');
+  const $imgContainer = document.createElement('div');
+  const searchImg = document.createElement('img');
+  $imgContainer.setAttribute('class', 'image-container justify-center check-vid');
+  if (entry.media === 'image') {
+    console.log('this is an image');
+    searchImg.setAttribute('src', entry.image);
+    searchImg.setAttribute('data-version', 'image');
+    searchImg.className = 'images';
+    $iframe.className = 'vid hidden';
+    $imgContainer.appendChild(searchImg);
 
-  var $imgContainer = document.createElement('div');
-  $imgContainer.setAttribute('class', 'image-container justify-center');
+  } else if (entry.media === 'video') {
 
-  var $favImg = document.createElement('img');
-  $favImg.setAttribute('src', entry.image);
+    $favVideo.className = 'vid';
+    $favVideo.setAttribute('src', entry.image);
+    $favVideo.setAttribute('data-version', 'video');
+    searchImg.className = 'hidden';
+    $imgContainer.appendChild($favVideo);
+    console.log('🚀 ~ $favVideo', $favVideo);
 
-  $favImg.setAttribute('class', 'images');
+  }
+  // const $favVideo = document.createElement('IFRAME');
+  // $favVideo.className = 'images';
+  // $favVideo.setAttribute('src', entry.image);
+  // console.log('🚀 ~ $favVideo', $favVideo);
+
+  // const $favImg = document.createElement('IFRAME');
+  // $favImg.setAttribute('src', entry.image);
+  // console.log('🚀 ~ $favImg', $favImg);
+
+  // $favImg.setAttribute('class', 'images');
   //  if (entry.media === 'video') {
   //   searchImg.className = 'hidden';
 
@@ -397,69 +478,79 @@ function renderFavorites(entry) {
 
   // }
 
-  // var $iframe = document.createElement('iframe');
+  // const $iframe = document.createElement('iframe');
   // $iframe.setAttribute('src', entry.image);
   // $iframe.style.width = '420px';
   // $iframe.style.height = '315px';
   // $iframe.setAttribute('class', 'hidden');
 
-  var $row = document.createElement('div');
+  const $row = document.createElement('div');
   $row.setAttribute('class', 'justify-align-center row width');
 
-  var $contentBox = document.createElement('div');
+  const $contentBox = document.createElement('div');
   $contentBox.setAttribute('class', 'content-box');
 
-  var $secondRow = document.createElement('div');
+  const $secondRow = document.createElement('div');
   $secondRow.setAttribute('class', 'row space-around width');
-  var $extraRow = document.createElement('div');
+  const $extraRow = document.createElement('div');
   $extraRow.setAttribute('class', 'row width justify-center');
 
-  var $colFull = document.createElement('div');
+  const $colFull = document.createElement('div');
   $colFull.setAttribute('class', 'column-full display-flex space-between');
 
-  var $title = document.createElement('h1');
+  const $title = document.createElement('h1');
   $title.setAttribute('class', 'title');
   $title.textContent = entry.title;
 
-  var $date = document.createElement('h3');
+  const $date = document.createElement('h3');
   $date.setAttribute('class', 'dateh3');
   $date.textContent = entry.date;
 
-  var $thirdRow = document.createElement('div');
+  const $thirdRow = document.createElement('div');
   $thirdRow.setAttribute('class', 'row');
 
-  var $secondColFull = document.createElement('div');
+  const $secondColFull = document.createElement('div');
   $secondColFull.setAttribute('class', 'column-full');
 
-  var $description = document.createElement('p');
+  const $description = document.createElement('p');
   $description.setAttribute('class', 'description');
   $description.textContent = entry.description;
 
-  var $thirdColFull = document.createElement('div');
+  const $thirdColFull = document.createElement('div');
   $thirdColFull.setAttribute('class', 'column-full justify-align-center');
 
-  var $heartContainter = document.createElement('div');
+  const $heartContainter = document.createElement('div');
   $heartContainter.setAttribute('class', 'heart');
 
-  var $heartIcon = document.createElement('img');
+  const $heartIcon = document.createElement('img');
   $heartIcon.setAttribute('src', 'images/heart (1).png');
   $heartIcon.setAttribute('alt', 'heart-icon');
   $heartIcon.setAttribute('class', 'object-fit hearts');
 
-  var anchor = document.createElement('a');
+  const anchor = document.createElement('a');
   anchor.setAttribute('href', '#delete');
   anchor.setAttribute('class', 'delete');
 
   anchor.addEventListener('click', deleteFavorite);
 
-  var $deleteIcon = document.createElement('i');
+  const $deleteIcon = document.createElement('i');
   $deleteIcon.setAttribute('class', 'fa-solid fa-trash-can');
   $deleteIcon.setAttribute('data-set', entry.entry);
   anchor.appendChild($deleteIcon);
 
   $listItem.appendChild($colFull1);
   $colFull1.appendChild($imgContainer);
-  $imgContainer.appendChild($favImg);
+  if (typeof entry.image === typeof 'image') {
+    $imgContainer.appendChild(searchImg);
+
+  } else if (typeof entry.image === typeof 'video') {
+    $imgContainer.appendChild($favVideo);
+  }
+  // if (entry.media === 'img') {
+  //   $imgContainer.appendChild($favImg);
+  // } else if (entry.media === 'video') {
+  //   $imgContainer.appendChild($favVideo);
+  // }
 
   $listItem.appendChild($row);
   $row.appendChild($contentBox);
