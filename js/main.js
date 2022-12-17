@@ -50,29 +50,38 @@ function handleHeartSearchClick(event) {
   const newDescription = currentSearchDescription.textContent;
   const currentImg = document.querySelector('#search-image');
   const url = currentImg.getAttribute('src');
-  const vidUrl = document.querySelector('#searchVid');
+
+  const vidUrl = document.querySelector('#vid-frame');
   const vidSrc = vidUrl.getAttribute('src');
-  console.log('🚀 ~ vidSrc', vidSrc);
-  let media = currentImg.getAttribute('data-version');
-  console.log('🚀 ~ media', media);
-  if (media === 'image') {
+
+  const vidMedia = vidUrl.getAttribute('data-version');
+
+  let media = '';
+
+  const imgMedia = currentImg.getAttribute('data-version');
+
+  if (vidSrc === '') {
     media = 'image';
-  } else if (media === 'video') {
+
+  } else if (url === '') {
     media = 'video';
+
   }
 
-  console.log('🚀 ~ media', media);
-  console.log('🚀 ~ url', url);
+  const newVid = vidSrc;
+
   const newImg = url;
-  console.log('🚀 ~ newImg', newImg);
+
   const newEntry = {
     title: newTitle,
     date: newDate,
     image: newImg,
     description: newDescription,
     entry: nasa.favId,
+    video: newVid,
     media
   };
+
   saveImg(newEntry);
   viewSwap('favorites-page');
 }
@@ -91,9 +100,8 @@ function handleStartHeartClick(event) {
   const imgUrl = curImage.getAttribute('src');
   const vidUrl = document.querySelector('#vid-frame');
   const vidSrc = vidUrl.getAttribute('src');
-  console.log('🚀 ~ vidSrc', vidSrc);
+
   const vidData = vidUrl.getAttribute('data-version');
-  console.log('🚀 ~ vidData', vidData);
 
   let media = curImage.getAttribute('data-version');
   if (media === 'image') {
@@ -102,19 +110,16 @@ function handleStartHeartClick(event) {
     media = 'video';
   }
 
-  console.log('🚀 ~ imgUrl', imgUrl);
-
-  console.log('🚀 ~ media in like button', media);
   const newEntry = {
     title: newTitle,
     date: newDate,
     description: newDescription,
     image: imgUrl,
-
+    video: imgUrl,
     entry: nasa.favId,
     media
   };
-  console.log('new entry', newEntry);
+
   saveImg(newEntry);
 }
 const errorPage = document.querySelector('[data-view=error-page]');
@@ -181,7 +186,7 @@ function getNasaImg(image) {
     if (xhr.status === 400) {
 
       const responseErr = xhr.response.msg;
-      console.log('🚀 ~ responseErr', responseErr);
+
       const errorMsg = document.querySelector('.err-msg');
       errorMsg.textContent = `Sorry, here is the error message from Nasa: '${responseErr}'`;
       viewSwap('error-page');
@@ -190,13 +195,13 @@ function getNasaImg(image) {
       const title = xhr.response.title;
       const description = xhr.response.explanation;
       const imgUrl = xhr.response.url;
-      console.log('🚀 ~ imgUrl', imgUrl);
+
       const date = xhr.response.date;
       let media = xhr.response.media_type;
-      console.log('🚀 ~ media in get nasa ', media);
+
       const vidFrame = document.createElement('iframe');
-      vidFrame.setAttribute('data-version', 'video');
-      vidFrame.className = 'vid hidden';
+      videoFrame.setAttribute('data-version', 'video');
+      videoFrame.className = 'vid hidden';
 
       if (media === 'video') {
         videoFrame.setAttribute('src', imgUrl);
@@ -217,18 +222,19 @@ function getNasaImg(image) {
       starTitle.textContent = title;
       dateh3.textContent = date;
 
-      console.log(xhr.response);
       const startEntry = {
+
         response,
 
         title,
         description,
         image: imgUrl,
+        video: imgUrl,
         date,
         media,
         entry: nasa.startResult
       };
-      console.log('🚀 ~ startEntry ', startEntry);
+
     }
   });
   xhr.send();
@@ -237,7 +243,7 @@ function getNasaImg(image) {
 getNasaImg(nasa);
 
 function handleDate(event) {
-  console.log('handleDate event target', event.target);
+
   event.preventDefault();
 
   const currentDay = day.value;
@@ -285,51 +291,46 @@ function searchDay(time) {
     } else if (xhr.status === 200) {
 
       const response = xhr.response;
-      console.log('🚀 ~ response', response);
+
       const description = response.explanation;
       const imgUrl = response.url;
       const media = response.media_type;
 
-      console.log('🚀 ~ media in search xhr', media);
-      // imgUrl.setAttribute('data-version', media);
-
       const title = response.title;
       const date = response.date;
-      console.log('🚀 ~ media', media);
       const searchDescription = response.explanation;
       const searchValues = {
         title: response.title,
         date: response.date,
         description: response.explanation,
         image: imgUrl,
+        video: imgUrl,
         media,
 
         searchResult: nasa.searchResult
       };
-      console.log('🚀 ~ searchValues ', searchValues);
 
-      console.log(searchValues);
       nasa.searchResult++;
       renderSearch(searchValues);
 
     }
+
   });
   xhr.send();
 
 }
 
 function saveImg(entry) {
-  console.log('🚀 ~ entry in SAVE IMAGE', entry);
 
   nasa.favorites.unshift(entry);
   nasa.favId++;
   load(entry);
-  console.log('save image in entry', entry);
+
   viewSwap('favorites-page');
 }
 
 function load(entry) {
-  console.log('🚀 ~ entry in load entry', entry);
+
   const newEntry = renderFavorites(entry);
   searchUl.prepend(newEntry);
   viewSwap('favorites-page');
@@ -338,7 +339,7 @@ function load(entry) {
 window.addEventListener('DOMContentLoaded', DOMloaded);
 
 function DOMloaded() {
-  console.log('dom loaded', event);
+
   for (let i = 0; i < nasa.favorites.length; i++) {
     const previousEntry = renderFavorites(nasa.favorites[i]);
     searchUl.append(previousEntry);
@@ -363,18 +364,17 @@ function todaysQuote(quote) {
 todaysQuote(name);
 
 function renderSearch(entry) {
-  console.log('render search entry', entry);
+
   const media = entry.media;
-  console.log('🚀 ~ media ', media);
 
   const title = entry.title;
-  console.log('🚀 ~ title', title);
+
   const img = entry.image;
-  console.log('🚀 ~ img', img);
 
   const description = entry.description;
   const date = entry.date;
   if (media === 'video') {
+    searchImg.setAttribute('src', '');
     searchImg.className = 'hidden';
 
     $iframe.setAttribute('src', img);
@@ -386,6 +386,7 @@ function renderSearch(entry) {
   } else if (media === 'image') {
 
     searchImg.setAttribute('src', img);
+    $iframe.setAttribute('src', '');
     $iframe.className = 'hidden';
 
     searchImg.className = 'images';
@@ -406,25 +407,18 @@ function renderSearch(entry) {
     description,
     image: img,
     date,
-    media
+    media,
+    video: img
   };
-  console.log('response Object in search', responseObj);
+
   viewSwap('search-result');
 }
 
 function renderFavorites(entry) {
-  console.log('🚀 ~ entry', entry);
-  console.log('favorites IMG', entry.image);
-  // const image = entry.image;
-  // const version = image.getAttribute('data-version');
-  // console.log('🚀 ~ version', version);
-  console.log('entry midea IN FAV', entry.media);
-  //  const version = entry.image.getAttribute('data-version');
-  // console.log('🚀 ~ version', version);
+
   const $listItem = document.createElement('li');
   $listItem.setAttribute('class', 'row justify-align-center');
   $listItem.setAttribute('entry', entry.entry);
-  console.log('🚀 ~ entry.entry', entry.entry);
 
   const $colFull1 = document.createElement('div');
   $colFull1.setAttribute('class', 'column-full justify-align-center');
@@ -433,56 +427,24 @@ function renderFavorites(entry) {
   const searchImg = document.createElement('img');
   $imgContainer.setAttribute('class', 'image-container justify-center check-vid');
   if (entry.media === 'image') {
-    console.log('this is an image');
+
     searchImg.setAttribute('src', entry.image);
     searchImg.setAttribute('data-version', 'image');
     searchImg.className = 'images';
+    $favVideo.className = 'vid hidden';
     $iframe.className = 'vid hidden';
+    $favVideo.setAttribute('src', '');
     $imgContainer.appendChild(searchImg);
 
   } else if (entry.media === 'video') {
 
     $favVideo.className = 'vid';
-    $favVideo.setAttribute('src', entry.image);
+    $favVideo.setAttribute('src', entry.video);
     $favVideo.setAttribute('data-version', 'video');
     searchImg.className = 'hidden';
     $imgContainer.appendChild($favVideo);
-    console.log('🚀 ~ $favVideo', $favVideo);
 
   }
-  // const $favVideo = document.createElement('IFRAME');
-  // $favVideo.className = 'images';
-  // $favVideo.setAttribute('src', entry.image);
-  // console.log('🚀 ~ $favVideo', $favVideo);
-
-  // const $favImg = document.createElement('IFRAME');
-  // $favImg.setAttribute('src', entry.image);
-  // console.log('🚀 ~ $favImg', $favImg);
-
-  // $favImg.setAttribute('class', 'images');
-  //  if (entry.media === 'video') {
-  //   searchImg.className = 'hidden';
-
-  //   $iframe.setAttribute('src', img);
-  //   $iframe.className = 'images';
-
-  //   checkVid.appendChild($iframe);
-
-  // } else if (media === 'image') {
-
-  //   searchImg.setAttribute('src', img);
-  //   $iframe.className = 'hidden';
-
-  //   searchImg.className = 'images';
-  //   searchImg.setAttribute('src', img);
-
-  // }
-
-  // const $iframe = document.createElement('iframe');
-  // $iframe.setAttribute('src', entry.image);
-  // $iframe.style.width = '420px';
-  // $iframe.style.height = '315px';
-  // $iframe.setAttribute('class', 'hidden');
 
   const $row = document.createElement('div');
   $row.setAttribute('class', 'justify-align-center row width');
@@ -540,12 +502,12 @@ function renderFavorites(entry) {
 
   $listItem.appendChild($colFull1);
   $colFull1.appendChild($imgContainer);
-  if (typeof entry.image === typeof 'image') {
-    $imgContainer.appendChild(searchImg);
+  // if (typeof entry.image === typeof 'image') {
+  //   $imgContainer.appendChild(searchImg);
 
-  } else if (typeof entry.image === typeof 'video') {
-    $imgContainer.appendChild($favVideo);
-  }
+  // } else if (typeof entry.image === typeof 'video') {
+  //   $imgContainer.appendChild($favVideo);
+  // }
   // if (entry.media === 'img') {
   //   $imgContainer.appendChild($favImg);
   // } else if (entry.media === 'video') {
