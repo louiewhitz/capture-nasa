@@ -59,13 +59,6 @@ i.fa-check {
   margin: 1rem auto;
 }
 
-
-/*
-.loader {
-
-
-} */
-
 #loading {
   width: 2rem;
   height: 2rem;
@@ -74,7 +67,6 @@ i.fa-check {
   border-radius: 100%;
   margin: auto;
   visibility: hidden;
-
 }
 
 
@@ -172,13 +164,11 @@ a {
 }
 
 .images,
-
 .search-img {
   object-fit: fill;
   width: 90%;
   height: auto;
 }
-
 
 img {
   width: 100%;

@@ -223,9 +223,7 @@ function getNasaImg(image) {
       dateh3.textContent = date;
 
       const startEntry = {
-
         response,
-
         title,
         description,
         image: imgUrl,
@@ -234,7 +232,6 @@ function getNasaImg(image) {
         media,
         entry: nasa.startResult
       };
-
     }
   });
   xhr.send();
@@ -274,7 +271,6 @@ function hideLoading() {
 
 function searchDay(time) {
   displayLoading();
-
   const xhr = new XMLHttpRequest();
   xhr.open(
     'GET',
@@ -309,28 +305,21 @@ function searchDay(time) {
 
         searchResult: nasa.searchResult
       };
-
       nasa.searchResult++;
       renderSearch(searchValues);
-
     }
-
   });
   xhr.send();
-
 }
 
 function saveImg(entry) {
-
   nasa.favorites.unshift(entry);
   nasa.favId++;
   load(entry);
-
   viewSwap('favorites-page');
 }
 
 function load(entry) {
-
   const newEntry = renderFavorites(entry);
   searchUl.prepend(newEntry);
   viewSwap('favorites-page');
@@ -339,12 +328,10 @@ function load(entry) {
 window.addEventListener('DOMContentLoaded', DOMloaded);
 
 function DOMloaded() {
-
   for (let i = 0; i < nasa.favorites.length; i++) {
     const previousEntry = renderFavorites(nasa.favorites[i]);
     searchUl.append(previousEntry);
   }
-
 }
 
 function todaysQuote(quote) {
@@ -364,36 +351,26 @@ function todaysQuote(quote) {
 todaysQuote(name);
 
 function renderSearch(entry) {
-
   const media = entry.media;
-
   const title = entry.title;
-
   const img = entry.image;
-
   const description = entry.description;
   const date = entry.date;
   if (media === 'video') {
     searchImg.setAttribute('src', '');
     searchImg.className = 'hidden';
-
     $iframe.setAttribute('src', img);
     $iframe.className = 'vid';
     $iframe.setAttribute('data-version', 'video');
-
     checkVid.appendChild($iframe);
-
   } else if (media === 'image') {
-
     searchImg.setAttribute('src', img);
     $iframe.setAttribute('src', '');
     $iframe.className = 'hidden';
-
     searchImg.className = 'images';
     searchImg.setAttribute('src', img);
     searchImg.setAttribute('data-version', 'image');
     checkVid.appendChild(searchImg);
-
   }
 
   const searchTitle = document.querySelector('.search-title');
@@ -410,16 +387,13 @@ function renderSearch(entry) {
     media,
     video: img
   };
-
   viewSwap('search-result');
 }
 
 function renderFavorites(entry) {
-
   const $listItem = document.createElement('li');
   $listItem.setAttribute('class', 'row justify-align-center');
   $listItem.setAttribute('entry', entry.entry);
-
   const $colFull1 = document.createElement('div');
   $colFull1.setAttribute('class', 'column-full justify-align-center');
   const $favVideo = document.createElement('iframe');
@@ -427,7 +401,6 @@ function renderFavorites(entry) {
   const searchImg = document.createElement('img');
   $imgContainer.setAttribute('class', 'image-container justify-center check-vid');
   if (entry.media === 'image') {
-
     searchImg.setAttribute('src', entry.image);
     searchImg.setAttribute('data-version', 'image');
     searchImg.className = 'images';
@@ -502,17 +475,6 @@ function renderFavorites(entry) {
 
   $listItem.appendChild($colFull1);
   $colFull1.appendChild($imgContainer);
-  // if (typeof entry.image === typeof 'image') {
-  //   $imgContainer.appendChild(searchImg);
-
-  // } else if (typeof entry.image === typeof 'video') {
-  //   $imgContainer.appendChild($favVideo);
-  // }
-  // if (entry.media === 'img') {
-  //   $imgContainer.appendChild($favImg);
-  // } else if (entry.media === 'video') {
-  //   $imgContainer.appendChild($favVideo);
-  // }
 
   $listItem.appendChild($row);
   $row.appendChild($contentBox);
@@ -532,16 +494,16 @@ function renderFavorites(entry) {
 }
 
 function deleteFavorite(e) {
-  var $allLi = document.querySelectorAll('li');
-  var icon = event.target;
-  var activeIcon = icon.getAttribute('data-set');
-  for (var z = 0; z < nasa.favorites.length; z++) {
-    var allEntries = nasa.favorites[z];
-    for (var i = 0; i < $allLi.length; i++) {
-      var oneLi = $allLi[i];
-      var activeLi = oneLi.getAttribute('entry');
+  const $allLi = document.querySelectorAll('li');
+  const icon = event.target;
+  const activeIcon = icon.getAttribute('data-set');
+  for (let z = 0; z < nasa.favorites.length; z++) {
+    const allEntries = nasa.favorites[z];
+    for (let i = 0; i < $allLi.length; i++) {
+      const oneLi = $allLi[i];
+      const activeLi = oneLi.getAttribute('entry');
       if (activeLi === activeIcon) {
-        var newTarget = $allLi[i];
+        const newTarget = $allLi[i];
         if (nasa.favorites[z].entry === +newTarget.getAttribute('entry')) {
           newTarget.remove();
           nasa.favorites.splice(z, 1);
