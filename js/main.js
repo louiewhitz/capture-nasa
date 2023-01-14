@@ -30,6 +30,8 @@ const startimage = document.querySelector('#start-image');
 const $iframe = document.querySelector('iframe');
 const searchImg = document.querySelector('#search-image');
 const checkVid = document.querySelector('.check-vid');
+const earthContainer = document.querySelector('.earth-container');
+const searchEarth = document.querySelector('.search-earth-container');
 
 const heartClick = document.querySelector('object-fit');
 form.addEventListener('submit', handleDate);
@@ -179,10 +181,12 @@ const videoFrame = document.querySelector('#vid-frame');
 const startImg = document.querySelector('#start-image');
 
 function getNasaImg(image) {
+  startimage.className = 'hidden';
   const xhr = new XMLHttpRequest();
   xhr.open('GET', nasaBaseUrl);
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
+    earthContainer.className = 'hidden';
     if (xhr.status === 400) {
 
       const responseErr = xhr.response.msg;
@@ -271,6 +275,7 @@ function hideLoading() {
 
 function searchDay(time) {
   displayLoading();
+  searchEarth.className = 'search-earth-container view';
   const xhr = new XMLHttpRequest();
   xhr.open(
     'GET',
@@ -278,6 +283,7 @@ function searchDay(time) {
   );
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
+    searchEarth.className = 'hidden';
     if (xhr.status === 400 || xhr.status === 404) {
       const responseErr = xhr.response.msg;
       const errorMsg = document.querySelector('.err-msg');

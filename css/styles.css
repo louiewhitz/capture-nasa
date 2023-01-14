@@ -13,6 +13,38 @@
   text-shadow: 0 0 100px purple;
 }
 
+.earth-container, .search-earth-container  {
+   display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image-container > .search-earth-container {
+  justify-content: center;
+}
+
+.earth-container > img {
+  width: 256px !important;
+  height: 256px !important;
+}
+
+.image-container > .earth-container {
+  justify-content: center;
+}
+.earth {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-image: radial-gradient(#5BC0BE, #2A4F5E);
+  box-shadow: 0 0 10px #2A4F5E;
+  animation: spin 4s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
 i.fa-check {
   cursor: pointer;
   font-size: 4.5em;
