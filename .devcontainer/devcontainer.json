@@ -22,7 +22,9 @@
 		"streetsidesoftware.code-spell-checker",
 		"wscats.html-snippets",
 		"JakeBecker.elixir-ls",
-		"TabNine.tabnine-vscode"
+		"TabNine.tabnine-vscode",
+		"ChakrounAnas.turbo-console-log",
+		"nathanchapman.javascriptsnippets"
 	]
     }
   },

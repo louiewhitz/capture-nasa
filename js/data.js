@@ -1,18 +1,23 @@
 /* exported data */
 
-var nasa = {
+let nasa = {
   view: 'start-page',
   favorites: [],
   favId: 1
 };
 
-var previousEntryJSON = localStorage.getItem('nasa');
+const previousEntryJSON = localStorage.getItem('nasa');
 if (previousEntryJSON !== null) {
   nasa = JSON.parse(previousEntryJSON);
 }
 
 window.addEventListener('beforeunload', beforeUnload);
 function beforeUnload() {
-  var jsonNasa = JSON.stringify(nasa);
+  const jsonNasa = JSON.stringify(nasa);
   localStorage.setItem('nasa', jsonNasa);
 }
+
+window.addEventListener('pagehide', function () {
+  const jsonNasa = JSON.stringify(nasa);
+  localStorage.setItem('nasa', jsonNasa);
+});
