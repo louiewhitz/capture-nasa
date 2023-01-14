@@ -172,7 +172,7 @@ function handleNav(event) {
   }
 }
 
-var nasaBaseUrl = `https://api.nasa.gov/planetary/apod?api_key=${apiKey}`;
+const nasaBaseUrl = `https://api.nasa.gov/planetary/apod?api_key=${apiKey}`;
 
 const startVid = document.querySelector('.video');
 const videoFrame = document.querySelector('#vid-frame');
@@ -340,9 +340,9 @@ function todaysQuote(quote) {
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
     if (xhr.status === 200) {
-      var newQ = xhr.response.content;
-      var author = xhr.response.author;
-      var quote = document.querySelector('.quote');
+      const newQ = xhr.response.content;
+      const author = xhr.response.author;
+      const quote = document.querySelector('.quote');
       quote.textContent = newQ + ' - ' + author;
     }
   });
