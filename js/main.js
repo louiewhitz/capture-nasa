@@ -42,7 +42,6 @@ const $searchBtn = document.querySelector('#searchBtn');
 
 link2.addEventListener('click', handleHeartSearchClick);
 
-
 function handleHeartSearchClick(event) {
 
   const currentTitle = document.querySelector('.search-title');
@@ -183,12 +182,14 @@ const startImg = document.querySelector('#start-image');
 const initialVid = document.querySelector('vid');
 
 function getNasaImg(image) {
- 
+  earthContainer.style.display = 'block';
+
   const xhr = new XMLHttpRequest();
   xhr.open('GET', nasaBaseUrl);
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
-  
+    earthContainer.style.display = 'none';
+
     if (xhr.status === 400) {
 
       const responseErr = xhr.response.msg;
@@ -279,6 +280,7 @@ function hideLoading() {
 }
 
 function searchDay(time) {
+  searchEarth.style.display = 'block';
   displayLoading();
 
   const xhr = new XMLHttpRequest();
@@ -288,6 +290,7 @@ function searchDay(time) {
   );
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
+    searchEarth.style.display = 'none';
 
     if (xhr.status === 400 || xhr.status === 404) {
       const responseErr = xhr.response.msg;
