@@ -30,6 +30,8 @@ const startimage = document.querySelector('#start-image');
 const $iframe = document.querySelector('iframe');
 const searchImg = document.querySelector('#search-image');
 const checkVid = document.querySelector('.check-vid');
+const earthContainer = document.querySelector('.earth-container');
+const searchEarth = document.querySelector('.search-earth-container');
 
 const heartClick = document.querySelector('object-fit');
 form.addEventListener('submit', handleDate);
@@ -39,6 +41,7 @@ const loader = document.querySelector('.loader');
 const $searchBtn = document.querySelector('#searchBtn');
 
 link2.addEventListener('click', handleHeartSearchClick);
+
 
 function handleHeartSearchClick(event) {
 
@@ -177,12 +180,15 @@ const nasaBaseUrl = `https://api.nasa.gov/planetary/apod?api_key=${apiKey}`;
 const startVid = document.querySelector('.video');
 const videoFrame = document.querySelector('#vid-frame');
 const startImg = document.querySelector('#start-image');
+const initialVid = document.querySelector('vid');
 
 function getNasaImg(image) {
+ 
   const xhr = new XMLHttpRequest();
   xhr.open('GET', nasaBaseUrl);
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
+  
     if (xhr.status === 400) {
 
       const responseErr = xhr.response.msg;
@@ -257,6 +263,9 @@ function handleDate(event) {
 }
 
 const spinDiv = document.querySelector('#spin-div');
+window.onbeforeunload = function () {
+  spinDiv.style.display = 'block';
+};
 
 function displayLoading() {
   spinDiv.classList.add('view');
@@ -264,13 +273,14 @@ function displayLoading() {
     spinDiv.classList.remove('view');
   }, 1000);
 }
-
+//  dates with videos 19/02/2019 2016-06-28
 function hideLoading() {
   spinDiv.classList.remove('view');
 }
 
 function searchDay(time) {
   displayLoading();
+
   const xhr = new XMLHttpRequest();
   xhr.open(
     'GET',
@@ -278,6 +288,7 @@ function searchDay(time) {
   );
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
+
     if (xhr.status === 400 || xhr.status === 404) {
       const responseErr = xhr.response.msg;
       const errorMsg = document.querySelector('.err-msg');
