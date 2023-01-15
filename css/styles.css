@@ -13,6 +13,16 @@
   text-shadow: 0 0 100px purple;
 }
 
+.span-container {
+   position: absolute;
+  top: 20%;
+  
+   display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
 .earth-container, .search-earth-container  {
   position: absolute;
   top: 20%;
@@ -298,6 +308,22 @@ iframe {
   color: #e7dfdf;
   margin-top: 10px;
   padding-left: 5px;
+ 
+}
+
+.span-container, .search-span {
+
+  top: 20%;
+  
+   display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.span-container > img {
+  width: 24em;
+  text-align: center
 }
 
 .view {
