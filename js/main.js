@@ -32,6 +32,7 @@ const searchImg = document.querySelector('#search-image');
 const checkVid = document.querySelector('.check-vid');
 const earthContainer = document.querySelector('.earth-container');
 const searchEarth = document.querySelector('.search-earth-container');
+const contentBox = document.querySelector('.content-box');
 
 const heartClick = document.querySelector('object-fit');
 form.addEventListener('submit', handleDate);
@@ -183,12 +184,14 @@ const initialVid = document.querySelector('vid');
 
 function getNasaImg(image) {
   earthContainer.style.display = 'block';
+  contentBox.style.display = 'none';
 
   const xhr = new XMLHttpRequest();
   xhr.open('GET', nasaBaseUrl);
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
     earthContainer.style.display = 'none';
+    contentBox.style.display = 'block';
 
     if (xhr.status === 400) {
 
