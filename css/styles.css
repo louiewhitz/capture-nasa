@@ -166,10 +166,12 @@ a {
   text-align: center;
 
    width: 100%;
-
-
- 
 }
+
+ .earth-container, .search-earth-container {
+ position: absolute;
+}
+
 
 .images,
 .search-img {
