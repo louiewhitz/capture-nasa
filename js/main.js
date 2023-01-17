@@ -272,9 +272,9 @@ window.onbeforeunload = function () {
 };
 
 function displayLoading() {
-  spinDiv.classList.add('view');
+  spinDiv.style.display = 'block';
   setTimeout(() => {
-    spinDiv.classList.remove('view');
+    spinDiv.style.display = 'none';
   }, 1000);
 }
 //  dates with videos 19/02/2019 2016-06-28

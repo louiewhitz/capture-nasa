@@ -32,9 +32,7 @@ fa-check {
   display: none;
 }
 
-#spin-div.view {
-  display: block;
-}
+
 
 .loader {
   display: flex;
