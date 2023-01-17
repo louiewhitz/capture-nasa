@@ -191,7 +191,6 @@ function getNasaImg(image) {
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
     earthContainer.style.display = 'none';
-    contentBox.style.display = 'block';
 
     if (xhr.status === 400) {
 
@@ -201,6 +200,7 @@ function getNasaImg(image) {
       errorMsg.textContent = `Sorry, here is the error message from Nasa: '${responseErr}'`;
       viewSwap('error-page');
     } else if (xhr.status === 200) {
+      contentBox.style.display = 'block';
       const response = xhr.response;
       const title = xhr.response.title;
       const description = xhr.response.explanation;
