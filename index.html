@@ -3,6 +3,19 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta property="og:title" content="Capture NASA" />
+    <meta
+      property="og:description"
+      content="A web app to capture the NASA's images and videos of the day, search the past for answers, and save any video or image as memory."
+    />
+    <meta
+      property="og:image"
+      content="https://louiewhitz.github.io/capture-nasa/images/capture-nasa-img.webp"
+    />
+    <meta
+      property="og:url"
+      content="https://louiewhitz.github.io/capture-nasa/"
+    />
     <title>Capture Nasa</title>
     <link rel="icon" href="images/icons8-shooting-stars-48.png" />
     <link rel="stylesheet" href="css/reset.css" />
@@ -34,7 +47,7 @@
     </div>
 
     <header class="container margin-top nav-bar">
-      <div class="row space-evenly ">
+      <div class="row space-evenly">
         <div class="col-half justify-align-center">
           <a
             href="#start-page"
@@ -209,7 +222,11 @@
             </div>
           </div>
         </div>
-        <div class="view hidden" data-view="favorites-page" id="#favorites-page">
+        <div
+          class="view hidden"
+          data-view="favorites-page"
+          id="#favorites-page"
+        >
           <ul class="container" id="search-ul"></ul>
         </div>
         <div class="view hidden" data-view="error-page" id="error-page">
