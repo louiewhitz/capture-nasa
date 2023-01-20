@@ -181,7 +181,6 @@ const startVid = document.querySelector('.video');
 const videoFrame = document.querySelector('#vid-frame');
 const startImg = document.querySelector('#start-image');
 const initialVid = document.querySelector('vid');
-
 function getNasaImg(image) {
   earthContainer.style.display = 'block';
   contentBox.style.display = 'none';
