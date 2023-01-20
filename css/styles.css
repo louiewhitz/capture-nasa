@@ -3,10 +3,12 @@
   font-family: "Source Sans Pro", sans-serif;
   font-style: normal;
   font-weight: 700;
-  font-size: 3.2em;
+  font-size: 3.1em;
   text-align: center;
   color: #10a9ff;
   letter-spacing: 3px;
+  width: 100%;
+
 }
 
 #h2nasa:hover {
@@ -32,8 +34,6 @@ fa-check {
   display: none;
 }
 
-
-
 .loader {
   display: flex;
   z-index: 10;
@@ -49,10 +49,8 @@ fa-check {
   width: 80px;
 }
 
-.spin-text {
-  color: rgb(180, 180, 189);
-  font-size: 1.5em;
-  padding-top: 8%;
+#spinDiv.view {
+  display: block;
 }
 
 .margin-top {
@@ -87,15 +85,16 @@ fa-check {
   border: 3px solid rgba(21, 83, 243, 0.75);
   box-shadow: 0 0 60px #f8b76b;
   height: 4.5em;
-  width: 70%;
+  width: 7.3em;
   text-align: center;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 50%;
-  margin-right: 20px;
-  
-  line-height: 29px;
+  margin-right: 10%;
+   font-family: "Recursive Mono Casual Static", sans-serif;
+  font-style: normal;
+  font-weight: 700;
   color: #fff510;
 }
 
@@ -115,12 +114,17 @@ fa-check {
   opacity: 0.8;
   border: 3px solid rgba(21, 83, 243, 0.75);
   box-shadow: 0 0 60px #f8b76b;
-  height: 6em;
-  width: 100%;
+  height: 7em;
+  width: 12em;
+
   border-radius: 50%;
   text-decoration: none;
   line-height: 29px;
-  color: #f7eb06;
+  color: #fff510;
+  scroll-behavior: smooth;
+  font-family: "Recursive Mono Casual Static", sans-serif;
+  font-style: normal;
+  font-weight: 700;
 }
 
 button {
@@ -130,11 +134,10 @@ button {
 
 a {
   text-decoration: none;
-  font-family: "Recursive Mono Casual Static", sans-serif;
-  font-style: normal;
-  font-weight: 700;
-  font-size: 100%;
+ 
+
   letter-spacing: 0.2rem;
+  scroll-behavior: smooth;
 }
 
 .center {
@@ -459,6 +462,9 @@ ul {
   background-color: rgb(180, 180, 180);
 }
 
+.p-0 {
+  padding: 0 0.5em;
+}
 /* utility classes */
 
 .display-flex {
@@ -523,6 +529,13 @@ ul {
   object-fit: contain;
 }
 
+.space-around {
+  display: flex;
+  justify-content: space-around;
+}
+.display-inline-flex {
+  display: block;
+}
 .wrap-reverse {
   flex-wrap: wrap-reverse;
 }
