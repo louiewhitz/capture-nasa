@@ -1,3 +1,4 @@
+![logo](https://github.com/louiewhitz/capture-nasa/blob/main/images/capture-resize.png)
 # Capture Nasa 
 A dynamic HTML, CSS, and JavaScript solo project. View a [live demo here](https://louiewhitz.github.io/ajax-project/).
 
