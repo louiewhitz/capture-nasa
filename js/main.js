@@ -470,17 +470,25 @@ function renderFavorites(entry) {
   const $thirdColFull = document.createElement('div');
   $thirdColFull.setAttribute('class', 'column-full justify-align-center');
 
-  const $heartContainter = document.createElement('div');
-  $heartContainter.setAttribute('class', 'heart');
+  const $heartContainer = document.createElement('div');
+  $heartContainer.setAttribute('class', 'heart');
 
   const $heartIcon = document.createElement('img');
-  $heartIcon.setAttribute('src', 'images/heart (1).png');
+  $heartIcon.setAttribute('src', 'images/heart (3).png');
   $heartIcon.setAttribute('alt', 'heart-icon');
   $heartIcon.setAttribute('class', 'object-fit hearts');
 
   const anchor = document.createElement('a');
   anchor.setAttribute('href', '#delete');
   anchor.setAttribute('class', 'delete');
+  const colT = document.createElement('div');
+  colT.setAttribute('class', 'col-third');
+  const colThird = document.createElement('div');
+  colThird.setAttribute('class', 'col-third justify-align-center');
+  colThird.appendChild($heartContainer);
+
+  const colThirdLast = document.createElement('div');
+  colThirdLast.setAttribute('class', 'col-third justify-align-end');
 
   anchor.addEventListener('click', deleteFavorite);
 
@@ -488,6 +496,8 @@ function renderFavorites(entry) {
   $deleteIcon.setAttribute('class', 'fa-solid fa-trash-can');
   $deleteIcon.setAttribute('data-set', entry.entry);
   anchor.appendChild($deleteIcon);
+
+  colThirdLast.append(anchor);
 
   $listItem.appendChild($colFull1);
   $colFull1.appendChild($imgContainer);
@@ -503,9 +513,9 @@ function renderFavorites(entry) {
   $secondColFull.appendChild($description);
   $secondColFull.appendChild($date);
   $extraRow.appendChild($thirdColFull);
-  $thirdColFull.appendChild($heartContainter);
-  $heartContainter.appendChild($heartIcon);
-  $heartContainter.appendChild(anchor);
+  $thirdColFull.append(colT, colThird, colThirdLast);
+
+  $heartContainer.appendChild($heartIcon);
   return $listItem;
 }
 
