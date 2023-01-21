@@ -85,7 +85,7 @@ fa-check {
       rgba(186, 191, 230, 0.45) 86.46%,
       rgba(243, 60, 137, 0.45) 97.4%
     );
-  opacity: 0.8;
+  opacity: 0.9;
   border: 3px solid rgba(21, 83, 243, 0.75);
   box-shadow: 0 0 60px #f3f307;
   height: 4.5em;
@@ -116,7 +116,7 @@ fa-check {
       rgba(243, 60, 137, 0.45) 97.4%
     )
     0.5%;
-  opacity: 0.8;
+  opacity: 0.9;
   border: 3px solid rgba(21, 83, 243, 0.75);
   box-shadow: 0 0 60px #f3f307;
   height: 7em;
@@ -346,10 +346,7 @@ iframe {
 }
 
 .hearts:hover {
-  
   box-shadow: 0px 0px 50px rgba(47, 46, 44, 0.304);
-
-
 }
 
 .elipse {
@@ -367,9 +364,9 @@ iframe {
       #babfe6 86.46%,
       #f33c89 97.4%
     );
-  opacity: 0.5;
+  opacity: 0.7;
   border: 3px solid rgba(21, 83, 243, 0.75);
-  box-shadow: 0 0 90px #fafe28;
+     box-shadow: 0 0 60px #f3f307;
   border-radius: 50%;
 }
 
