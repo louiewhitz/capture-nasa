@@ -12,7 +12,7 @@ Capture Nasa was built using simple front end technologies implementing AJAX req
 * User can delete any image or video from the favorites page
 
 ## Web Application in Action
-![ReadMe](https://github.com/louiewhitz/ajax-project/blob/main/Kapture%202023-01-18%20at%2021.37.13.gif)
+![ReadMe](https://github.com/louiewhitz/ajax-project/blob/main/Kapture%202023-01-20%20at%2015.53.02.gif)
 
 ## Technologies used in this project:
 HTML
