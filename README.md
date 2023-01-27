@@ -1,6 +1,6 @@
 ![logo](https://github.com/louiewhitz/capture-nasa/blob/main/images/capture-resize.png)
 # Capture Nasa 
-A dynamic HTML, CSS, and JavaScript solo project. View a [live demo here](https://louiewhitz.github.io/ajax-project/).
+A dynamic HTML, CSS, and JavaScript solo project. View a [live demo here](https://louiewhitz.github.io/capture-nasa/).
 
 This project is a web application that allows users to view  NASA's image or video of the day, save their favorite image or video to a favorites page, and search for past images or videos.This application is fully responsive design for optimal viewing on any device.
 
