@@ -385,9 +385,10 @@ i {
  padding-left: 4%;
 }
 
-.nav-tab:hover {
+/* 
+.nav-tab:hover { */
   /* box-shadow: 0 0 100px purple; */
-}
+/* } */
 
 .nav-tab:active {
   transform: translateY(0.25rem);
